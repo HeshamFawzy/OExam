@@ -19,9 +19,7 @@ Auth::routes();
 
 Route::get('/start', 'HomeController@start')->name('start');
 
-Route::get('/Basicindex', function () {
-    return view('basicadmin.index');
-})->name('basicadmin');
+Route::get('/Basicindex', 'BasicAdminController@index')->name('basicadmin');
 
 Route::get('/Adminindex', function () {
     return view('admin.index');
