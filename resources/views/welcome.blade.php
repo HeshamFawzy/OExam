@@ -75,6 +75,8 @@
                             <a href="{{ route('admin') }}">Home</a>
                         } @elseif (auth()->user()->role == 'User'){
                             <a href="{{ route('user') }}">Home</a>
+                        } @else {
+                            <a href="{{ route('verification') }}">Home</a>
                         }
                         @endif
                     @else
