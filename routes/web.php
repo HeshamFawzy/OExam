@@ -27,6 +27,8 @@ Route::group(["middleware" => ["auth","basicadmin"]], function(){
 
     Route::post('/verify', 'BasicAdminController@verify')->name('BasicAdmin.verify');
 
+    Route::post('/search/{email}', 'BasicAdminController@search')->name('BasicAdmin.search');
+
 });
 
 Route::group(["middleware" => ["auth","admin"]], function(){

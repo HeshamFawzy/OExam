@@ -37,4 +37,14 @@ class BasicAdminController extends Controller
 
         return Redirect::route('basicadmin');
     }
+
+    public function search(Request $request)
+    {
+        $users = DB::table('users')
+        ->where('users.email', 'like' , '%'.$request->input('search').'%')
+        ->get();
+
+        $options = ['Admin' , 'User', 'UnVerify'];
+        return view('basicadmin.index', ['users' => $users , 'options' => $options]);
+    }
 }
