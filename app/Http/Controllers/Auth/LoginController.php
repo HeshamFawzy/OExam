@@ -28,6 +28,8 @@ class LoginController extends Controller
             return '/Adminindex';
         } else if (auth()->user()->role == 'User'){
             return '/Userindex';
+        } else if (auth()->user()->role == ''){
+            return '/verification';
         }
     }
 

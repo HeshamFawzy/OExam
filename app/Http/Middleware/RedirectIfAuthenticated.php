@@ -24,6 +24,8 @@ class RedirectIfAuthenticated
                 return '/Adminindex';
             } else if (auth()->user()->role == 'User'){
                 return '/Userindex';
+            } else {
+                return '/Verification';
             }
         }
 

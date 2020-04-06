@@ -33,4 +33,9 @@ class HomeController extends Controller
 
         return view('welcome');
     }
+
+    public function verification()
+    {
+        return view('wait');
+    }
 }
