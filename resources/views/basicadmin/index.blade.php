@@ -30,7 +30,13 @@
             <tr>
                 <td>{{$user->name}}</td>
                 <td>{{$user->email}}</td>
-                <td><label class="label label-success">{{$user->role}}</label></td>
+                <td>
+                    @if($user->role == "Admin" || $user->role == "User")
+                        <label class="label label-success">{{$user->role}}</label>
+                    @else
+                    <label class="label label-danger">{{$user->role}}</label>
+                    @endif
+                </td>
                 <td>
                     <form method="post" action="{{ route('BasicAdmin.verify')}}" enctype="multipart/form-data">
                         {{ csrf_field() }}
