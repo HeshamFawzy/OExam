@@ -8,7 +8,7 @@
         <th>Name</th>
         <th>Email</th>
         <th>Role</th>
-        <th>Verify as Admin</th>
+        <th>Verify Role</th>
       </tr>
     </thead>
     <tbody>
@@ -16,7 +16,15 @@
         <tr>
             <td>{{$user->name}}</td>
             <td>{{$user->email}}</td>
-            <td>{{$user->role}}</td>
+            <td>
+                <select id="role" class="form-control" name="role" required="">
+                    <option value="" disabled="disabled" selected="true">Select Role</option>
+                    @if($options ?? '') @foreach($options as $option)
+                    <option value="{{$option}}" {{$user->role == $option  ? 'selected' : ''}}>
+                        {{$option}} </option>
+                    @endforeach @endif
+                </select>
+            </td>
             <td>
                 <button href="" class="btn btn-success" id="Auth" value="{{$user->id}}">Verify</button>
             </td>
