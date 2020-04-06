@@ -23,7 +23,7 @@ class BasicAdminController extends Controller
         ->where('role' , 'UnVerify')
         ->orwhere('role' , 'User')
         ->orwhere('role' , 'Admin')
-        ->get();
+        ->paginate(10);;
 
         $options = ['Admin' , 'User', 'UnVerify'];
         return view('basicadmin.index', ['users' => $users , 'options' => $options]);
@@ -42,7 +42,7 @@ class BasicAdminController extends Controller
     {
         $users = DB::table('users')
         ->where('users.email', 'like' , '%'.$request->input('search').'%')
-        ->get();
+        ->paginate(10);;
 
         $options = ['Admin' , 'User', 'UnVerify'];
         return view('basicadmin.index', ['users' => $users , 'options' => $options]);

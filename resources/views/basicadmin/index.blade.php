@@ -55,5 +55,8 @@
             @endforeach
         </tbody>
     </table>
+    <div style="float: right;">
+        {{ $users->links() }}
+    </div>
 </div>
 @endsection
