@@ -17,4 +17,18 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/start', 'HomeController@start')->name('start');
+
+Route::get('/Basicindex', function () {
+    return view('basicadmin.index');
+})->name('basicadmin');
+
+Route::get('/Adminindex', function () {
+    return view('admin.index');
+})->name('admin');
+
+Route::get('/Userindex', function () {
+    return view('user.index');
+})->name('user');
+
+

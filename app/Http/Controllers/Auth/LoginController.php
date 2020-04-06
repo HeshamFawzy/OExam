@@ -20,12 +20,23 @@ class LoginController extends Controller
 
     use AuthenticatesUsers;
 
+    protected function redirectTo()
+    {
+        if (auth()->user()->role == 'BasicAdmin') {
+            return '/Basicindex';
+        } else if (auth()->user()->role == 'Admin'){
+            return '/Adminindex';
+        } else if (auth()->user()->role == 'User'){
+            return '/Userindex';
+        }
+    }
+
     /**
      * Where to redirect users after login.
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    //protected $redirectTo = '/home';
 
     /**
      * Create a new controller instance.

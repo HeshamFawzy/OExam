@@ -22,12 +22,22 @@ class RegisterController extends Controller
 
     use RegistersUsers;
 
+    protected function redirectTo()
+    {
+        if (auth()->user()->role == 'BasicAdmin') {
+            return '/Basicindex';
+        } else if (auth()->user()->role == 'Admin'){
+            return '/Adminindex';
+        } else if (auth()->user()->role == 'User'){
+            return '/Userindex';
+        }
+    }
     /**
      * Where to redirect users after registration.
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    //protected $redirectTo = '/home';
 
     /**
      * Create a new controller instance.
