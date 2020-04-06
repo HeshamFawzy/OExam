@@ -30,7 +30,7 @@
             <tr>
                 <td>{{$user->name}}</td>
                 <td>{{$user->email}}</td>
-                <td>{{$user->role}}</td>
+                <td><label class="label label-success">{{$user->role}}</label></td>
                 <td>
                     <form method="post" action="{{ route('BasicAdmin.verify')}}" enctype="multipart/form-data">
                         {{ csrf_field() }}
