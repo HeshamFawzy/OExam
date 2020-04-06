@@ -31,35 +31,21 @@ Route::group(["middleware" => ["auth","basicadmin"]], function(){
 
 Route::group(["middleware" => ["auth","admin"]], function(){
 
+    Route::get('/Adminindex', function () {
+        return view('admin.index');
+    })->name('admin');
 
 
 });
 
 Route::group(["middleware" => ["auth","user"]], function(){
 
+    Route::get('/Userindex', function () {
+        return view('user.index');
+    })->name('user');
 
 
 });
-
-
-
-
-
-
-
-
-
-
-
-
-Route::get('/Adminindex', function () {
-    return view('admin.index');
-})->name('admin');
-
-
-Route::get('/Userindex', function () {
-    return view('user.index');
-})->name('user');
 
 
 Route::get('ajax', function(){ return view('ajax'); });

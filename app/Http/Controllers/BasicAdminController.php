@@ -12,7 +12,11 @@ use Redirect;
 
 class BasicAdminController extends Controller
 {
-    
+    public function __construct()
+    {
+        $this->middleware('basicadmin');
+    }
+
     public function index()
     {
         $users = DB::table('users')
