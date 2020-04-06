@@ -15,6 +15,7 @@
             </div>
         </form>
     </div>
+    <hr>
     <table class="table table-hover" style="background-color: white;">
         <thead>
             <tr>
