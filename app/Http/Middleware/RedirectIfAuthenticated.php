@@ -25,7 +25,7 @@ class RedirectIfAuthenticated
             } else if (auth()->user()->role == 'User'){
                 return '/Userindex';
             } else {
-                return '/Verification';
+                return '/verification';
             }
         }
 

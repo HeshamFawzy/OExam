@@ -27,7 +27,6 @@ Route::get('/Basicindex', 'BasicAdminController@index')->name('basicadmin');
 
 Route::post('/verify', 'BasicAdminController@verify')->name('BasicAdmin.verify');
 
-Route::post('/unverify', 'BasicAdminController@unverify')->name('BasicAdmin.unverify');
 
 
 
