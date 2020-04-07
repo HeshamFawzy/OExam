@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $updated_at
  * @property OnlineExam $onlineExam
  * @property Option[] $options
+ * @property UserExamQuestionAnswer[] $userExamQuestionAnswers
  */
 class question extends Model
 {
@@ -35,5 +36,13 @@ class question extends Model
     public function options()
     {
         return $this->hasMany('App\Option');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function userExamQuestionAnswers()
+    {
+        return $this->hasMany('App\UserExamQuestionAnswer');
     }
 }

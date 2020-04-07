@@ -16,6 +16,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $created_at
  * @property string $updated_at
  * @property User $user
+ * @property UserExamEnroll[] $userExamEnrolls
+ * @property UserExamQuestionAnswer[] $userExamQuestionAnswers
  */
 class examiner extends Model
 {
@@ -30,5 +32,21 @@ class examiner extends Model
     public function user()
     {
         return $this->belongsTo('App\User');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function userExamEnrolls()
+    {
+        return $this->hasMany('App\UserExamEnroll');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function userExamQuestionAnswers()
+    {
+        return $this->hasMany('App\UserExamQuestionAnswer');
     }
 }

@@ -6,7 +6,9 @@ use Illuminate\Http\Request;
 
 use DB;
 
-use App\online_exams;
+use App\online_exam;
+
+use App\Admin;
 
 class AdminController extends Controller
 {
@@ -32,15 +34,15 @@ class AdminController extends Controller
             'right' => 'required',
             'wrong' => 'required',
         ]);
-
-        $NewExam = online_exams::create([
-            'admin_id' => auth()->user()->id,
-            'title' => $request->input('title'),
-            'date' => $request->input('date'),
-            'duration' => $request->input('duration'),
-            'total' => $request->input('total'),
-            'right' => $request->input('right'),
-            'wrong' => $request->input('wrong')
+        $id = Admin::where('user_id' , auth()->user()->id)->select('id')->get();
+        $NewExam = online_exam::create([
+            'admin_id' => $id[0]->id,
+            'online_exam_title' => $request->input('title'),
+            'online_exam_datetime' => $request->input('date'),
+            'online_exam_duration' => $request->input('duration'),
+            'total_question' => $request->input('total'),
+            'marks_per_right_answer' => $request->input('right'),
+            'marks_per_wrong_answer' => $request->input('wrong')
         ]);
 
        return redirect()->action('AdminController@index');

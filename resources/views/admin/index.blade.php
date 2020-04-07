@@ -26,9 +26,21 @@
                     </tr>
                 </thead>
                 <tbody>
+                    @foreach($online_exams as $online_exam)
                     <tr>
-
+                        <td>{{$online_exam->online_exam_title}}</td>
+                        <td>{{date('d-m-Y', strtotime($online_exam->online_exam_datetime))}}</td>
+                        <td>{{$online_exam->online_exam_duration}}</td>
+                        <td>{{$online_exam->total_question}}</td>
+                        <td>{{$online_exam->marks_per_right_answer}}</td>
+                        <td>{{$online_exam->marks_per_wrong_answer}}</td>
+                        <td>{{$online_exam->online_exam_title}}</td>
+                        <td>{{$online_exam->online_exam_title}}</td>
+                        <td>{{$online_exam->online_exam_title}}</td>
+                        <td>{{$online_exam->online_exam_title}}</td>
+                        <td>{{$online_exam->online_exam_title}}</td>
                     </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>

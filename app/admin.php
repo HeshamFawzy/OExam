@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $created_at
  * @property string $updated_at
  * @property User $user
+ * @property OnlineExam[] $onlineExams
  */
 class admin extends Model
 {
@@ -24,5 +25,13 @@ class admin extends Model
     public function user()
     {
         return $this->belongsTo('App\User');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function onlineExams()
+    {
+        return $this->hasMany('App\OnlineExam');
     }
 }
