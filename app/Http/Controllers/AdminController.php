@@ -42,7 +42,8 @@ class AdminController extends Controller
             'online_exam_duration' => $request->input('duration'),
             'total_question' => $request->input('total'),
             'marks_per_right_answer' => $request->input('right'),
-            'marks_per_wrong_answer' => $request->input('wrong')
+            'marks_per_wrong_answer' => $request->input('wrong'),
+            'online_exam_status' => 'pending...',
         ]);
 
        return redirect()->action('AdminController@index');

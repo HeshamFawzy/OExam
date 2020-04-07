@@ -34,6 +34,9 @@
                         <td>{{$online_exam->total_question}} Question</td>
                         <td>{{$online_exam->marks_per_right_answer}} Mark</td>
                         <td>{{$online_exam->marks_per_wrong_answer}} Mark</td>
+                        @if($online_exam->online_exam_status == "pending...")
+                            <td><label class="badge badge-danger p-1">{{$online_exam->online_exam_status}}</label></td>
+                        @endif
                     </tr>
                     @endforeach
                 </tbody>
