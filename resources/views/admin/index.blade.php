@@ -3,7 +3,7 @@
 @section('content')
 <div class="card shadow">
     <div class="card-header py-3">
-        <p class="text-primary m-0 font-weight-bold">Exams Info</p>
+        <p class="text-primary m-0 font-weight-bold h2">Exams Info</p>
         <button style="float: right;" type="button" class="btn btn-primary" data-toggle="modal"
             data-target="#exampleModal" data-whatever="@mdo">Add New Exam</button>
     </div>
