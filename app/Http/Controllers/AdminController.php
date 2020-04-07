@@ -10,6 +10,7 @@ use App\online_exam;
 
 use App\Admin;
 
+
 class AdminController extends Controller
 {
     public function __construct()
@@ -47,5 +48,29 @@ class AdminController extends Controller
         ]);
 
        return redirect()->action('AdminController@index');
+    }
+
+    public function timer()
+    {
+        $mytime =  date("Y-m-d H:i:s");
+        $online_exams = DB::table('online_exams')
+        ->get();
+
+        foreach($online_exams as $online_exam)
+        {
+            if($online_exam->online_exam_status == "pending..."){
+                if($online_exam->online_exam_datetime < $mytime)
+                {
+                    online_exam::where('online_exams.id' , '=' , $online_exam->id)->update([
+                        'online_exam_status' => 'started',
+                    ]);
+                }
+            }
+            $response  = array(
+                'status' => $online_exams
+            );
+            
+        }
+        return response()->json($response);
     }
 }

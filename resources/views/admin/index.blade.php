@@ -7,7 +7,7 @@
         <button style="float: right;" type="button" class="btn btn-primary" data-toggle="modal"
             data-target="#exampleModal" data-whatever="@mdo">Add New Exam</button>
     </div>
-    <div class="card-body">
+    <div class="card-body table-container">
         <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
             <table class="table dataTable my-0" id="dataTable">
                 <thead>
@@ -104,4 +104,18 @@
         </div>
     </div>
 </div>
+<script>
+    $(document).ready(function(){
+        var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+        setInterval(function(){
+            $.ajax({
+            url: "/timer",
+            success: function( response ) {
+                
+            }
+            });
+        },1000);
+    }); 
+
+</script>
 @endsection
