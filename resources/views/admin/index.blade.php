@@ -29,12 +29,14 @@
                     @foreach($online_exams as $online_exam)
                     <tr>
                         <td>{{$online_exam->online_exam_title}}</td>
-                        <td>{{date('d-m-Y', strtotime($online_exam->online_exam_datetime))}}</td>
+                        <td>{{$online_exam->online_exam_datetime}}</td>
                         <td>{{$online_exam->online_exam_duration}} Minutes</td>
                         <td>{{$online_exam->total_question}} Question</td>
                         <td>{{$online_exam->marks_per_right_answer}} Mark</td>
                         <td>{{$online_exam->marks_per_wrong_answer}} Mark</td>
                         @if($online_exam->online_exam_status == "pending...")
+                            <td><label class="badge badge-warning p-1">{{$online_exam->online_exam_status}}</label></td>
+                        @else
                             <td><label class="badge badge-danger p-1">{{$online_exam->online_exam_status}}</label></td>
                         @endif
                     </tr>
@@ -66,7 +68,7 @@
 
                     <div class="form-group">
                         <label for="date">Exam Date & Time* :</label>
-                        <input type="date" class="form-control" name="date" required="" />
+                        <input type="datetime-local" class="form-control" name="date" required="" />
                     </div>
 
                     <div class="form-group">
