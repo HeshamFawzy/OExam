@@ -6,6 +6,10 @@ use Illuminate\Http\Request;
 
 use App\User;
 
+use App\Admin;
+
+use App\examiner;
+
 class HomeController extends Controller
 {
     public function start()
@@ -24,11 +28,19 @@ class HomeController extends Controller
             'role' => 'Admin',
         ]);
 
+        $Admint = Admin::create([
+            'user_id' => $Admin->id,
+        ]);
+
         $User = User::create([
             'name' => 'User',
             'email' => 'User@User.com',
             'password' => bcrypt('123456Aa_'),
             'role' => 'User',
+        ]);
+
+        $Usert = examiner::create([
+            'user_id' => $User->id,
         ]);
 
         return view('welcome');
