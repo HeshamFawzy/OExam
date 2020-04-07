@@ -65,12 +65,7 @@ class AdminController extends Controller
                         'online_exam_status' => 'started',
                     ]);
                 }
-            }
-            $response  = array(
-                'status' => $online_exams
-            );
-            
+            }      
         }
-        return response()->json($response);
     }
 }
