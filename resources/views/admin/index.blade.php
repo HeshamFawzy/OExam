@@ -30,10 +30,10 @@
                     <tr>
                         <td>{{$online_exam->online_exam_title}}</td>
                         <td>{{date('d-m-Y', strtotime($online_exam->online_exam_datetime))}}</td>
-                        <td>{{$online_exam->online_exam_duration}}</td>
-                        <td>{{$online_exam->total_question}}</td>
-                        <td>{{$online_exam->marks_per_right_answer}}</td>
-                        <td>{{$online_exam->marks_per_wrong_answer}}</td>
+                        <td>{{$online_exam->online_exam_duration}} Minutes</td>
+                        <td>{{$online_exam->total_question}} Question</td>
+                        <td>{{$online_exam->marks_per_right_answer}} Mark</td>
+                        <td>{{$online_exam->marks_per_wrong_answer}} Mark</td>
                     </tr>
                     @endforeach
                 </tbody>
