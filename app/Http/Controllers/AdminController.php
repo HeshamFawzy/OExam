@@ -56,7 +56,23 @@ class AdminController extends Controller
 
     public function editexam($id)
     {
-        dd($id);
+        $online_exam = online_exam::where('id', $id)->first();
+
+        return Redirect::back()->with('online_exam' , $online_exam);
+    }
+
+    public function editexamp(Request $request, $id)
+    {
+        online_exam::where('id' , '=' , $id)->update([
+            'online_exam_title' => $request->input('title'),
+            'online_exam_datetime' => $request->input('date'),
+            'online_exam_duration' => $request->input('duration'),
+            'total_question' => $request->input('total'),
+            'marks_per_right_answer' => $request->input('right'),
+            'marks_per_wrong_answer' => $request->input('wrong'),
+        ]);
+        
+        return Redirect::route('admin');
     }
 
     public function deleteexam($id)
