@@ -10,6 +10,8 @@ use App\online_exam;
 
 use App\Admin;
 
+use Illuminate\Support\Carbon;
+
 
 class AdminController extends Controller
 {
@@ -52,20 +54,48 @@ class AdminController extends Controller
 
     public function timer()
     {
-        $mytime =  date("Y-m-d H:i:s");
+        $now =  Carbon::now('Africa/Cairo')->timestamp;
         $online_exams = DB::table('online_exams')
         ->get();
 
         foreach($online_exams as $online_exam)
         {
-            if($online_exam->online_exam_status == "pending..."){
-                if($online_exam->online_exam_datetime < $mytime)
+            if($online_exam->online_exam_status == "pending...")
+            {
+                $datetime = Carbon::createFromFormat('Y-m-d H:i:s',$online_exam->online_exam_datetime, 'Africa/Cairo')->timestamp;
+                if($datetime < $now)
                 {
                     online_exam::where('online_exams.id' , '=' , $online_exam->id)->update([
                         'online_exam_status' => 'started',
                     ]);
                 }
             }      
+        }
+        $response = array(
+            'status' => $now
+        );
+        return response()->json($response);
+    }
+
+    public function timer2()
+    {
+        $online_exams = DB::table('online_exams')
+        ->get();
+        foreach($online_exams as $online_exam)
+        {
+            if($online_exam->online_exam_status == "started")
+            {
+                $now =  Carbon::now('Africa/Cairo')->timestamp;
+                $datetime = Carbon::createFromFormat('Y-m-d H:i:s',$online_exam->online_exam_datetime, 'Africa/Cairo')->timestamp;
+                $difference = $now - $datetime;
+                $duration = (int)$online_exam->online_exam_duration* 60;
+                if($difference > $duration)
+                {
+                    online_exam::where('online_exams.id' , '=' , $online_exam->id)->update([
+                        'online_exam_status' => 'completed',
+                    ]);
+                }
+            } 
         }
     }
 }

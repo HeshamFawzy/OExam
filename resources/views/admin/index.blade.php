@@ -36,8 +36,10 @@
                         <td>{{$online_exam->marks_per_wrong_answer}} Mark</td>
                         @if($online_exam->online_exam_status == "pending...")
                             <td><label class="badge badge-warning p-1">{{$online_exam->online_exam_status}}</label></td>
+                        @elseif($online_exam->online_exam_status == "started")
+                            <td><label class="badge badge-primary p-1">{{$online_exam->online_exam_status}}</label></td>
                         @else
-                            <td><label class="badge badge-danger p-1">{{$online_exam->online_exam_status}}</label></td>
+                            <td><label class="badge badge-dark p-1">{{$online_exam->online_exam_status}}</label></td>
                         @endif
                     </tr>
                     @endforeach
@@ -110,12 +112,19 @@
         setInterval(function(){
             $.ajax({
             url: "/timer",
-            success: function( response ) {
-                
+            success: function(response) {
+                console.log(response.status);
+            }
+            });
+        },1000);
+        setInterval(function(){
+            $.ajax({
+            url: "/timer2",
+            success: function(response) {
+
             }
             });
         },1000);
     }); 
-
 </script>
 @endsection

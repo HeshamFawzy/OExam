@@ -38,6 +38,8 @@ Route::group(["middleware" => ["auth","admin"]], function(){
     Route::post('/create', 'AdminController@create')->name('Admin.create');
 
     Route::GET('/timer', 'AdminController@timer')->name('Admin.timer');
+
+    Route::GET('/timer2', 'AdminController@timer2')->name('Admin.timer2');
 });
 
 Route::group(["middleware" => ["auth","user"]], function(){
