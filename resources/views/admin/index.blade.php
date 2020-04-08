@@ -34,16 +34,25 @@
                         <td>{{$online_exam->total_question}} Question</td>
                         <td>{{$online_exam->marks_per_right_answer}} Mark</td>
                         <td>{{$online_exam->marks_per_wrong_answer}} Mark</td>
-                        @if($online_exam->online_exam_status == "pending...")
-                            <td><label class="badge badge-warning p-1">{{$online_exam->online_exam_status}}</label></td>
-                        @elseif($online_exam->online_exam_status == "started")
-                            <td><label class="badge badge-primary p-1">{{$online_exam->online_exam_status}}</label></td>
-                        @else
-                            <td><label class="badge badge-dark p-1">{{$online_exam->online_exam_status}}</label></td>
-                        @endif
-                        @if($online_exam->online_exam_status == "pending...")
-                            <td><a>Add Question</a></td>
-                        @endif
+                        <td>
+                            @if($online_exam->online_exam_status == "pending...")
+                                <label class="badge badge-warning p-1">{{$online_exam->online_exam_status}}</label>
+                            @elseif($online_exam->online_exam_status == "started")
+                                <label class="badge badge-primary p-1">{{$online_exam->online_exam_status}}</label>
+                            @else
+                                <label class="badge badge-dark p-1">{{$online_exam->online_exam_status}}</label>
+                            @endif
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                            @if($online_exam->online_exam_status == "pending...")
+                                <a href="{{ url('/editexam' , $online_exam->id)}}" class="btn btn-success" name="edit">Edit</a>
+                                <a href="{{ url('/deleteexam' , $online_exam->id)}}" class="btn btn-danger" name="delete">Delete</a>
+                            @endif
+                        </td>
+                       
                     </tr>
                     @endforeach
                 </tbody>
@@ -110,9 +119,9 @@
     </div>
 </div>
 <script>
-    /*$(document).ready(function(){
+    $(document).ready(function(){
         var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-        setInterval(function(){
+        /*setInterval(function(){
             $.ajax({
             url: "/timer",
             success: function(response) {
@@ -127,10 +136,10 @@
 
             }
             });
-        },1000);
+        },1000);*/
         setInterval(function(){
             location.reload();
         },60000);
-    });*/
+    });
 </script>
 @endsection

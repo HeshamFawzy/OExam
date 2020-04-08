@@ -12,6 +12,8 @@ use App\Admin;
 
 use Illuminate\Support\Carbon;
 
+use Redirect;
+
 
 class AdminController extends Controller
 {
@@ -50,6 +52,21 @@ class AdminController extends Controller
         ]);
 
        return redirect()->action('AdminController@index');
+    }
+
+    public function editexam($id)
+    {
+        dd($id);
+    }
+
+    public function deleteexam($id)
+    {
+        $online_exam = online_exam::where('id', $id)->first();
+        if($online_exam != null){
+            $online_exam->delete();
+        }
+
+        return Redirect::route('admin');
     }
 
     public function timer()

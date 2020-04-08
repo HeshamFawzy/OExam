@@ -40,6 +40,10 @@ Route::group(["middleware" => ["auth","admin"]], function(){
     Route::GET('/timer', 'AdminController@timer')->name('Admin.timer');
 
     Route::GET('/timer2', 'AdminController@timer2')->name('Admin.timer2');
+
+    Route::GET('/editexam/{id}', 'AdminController@editexam')->name('Admin.editexam');
+
+    Route::GET('/deleteexam/{id}', 'AdminController@deleteexam')->name('Admin.deleteexam');
 });
 
 Route::group(["middleware" => ["auth","user"]], function(){
