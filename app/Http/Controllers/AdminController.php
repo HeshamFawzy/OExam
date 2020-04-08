@@ -14,6 +14,10 @@ use Illuminate\Support\Carbon;
 
 use Redirect;
 
+use App\question;
+
+use App\option;
+
 
 class AdminController extends Controller
 {
@@ -63,6 +67,14 @@ class AdminController extends Controller
 
     public function editexamp(Request $request, $id)
     {
+        $validatedData = $request->validate([
+            'title' => 'required',
+            'date' => 'required',
+            'duration' => 'required',
+            'total' => 'required',
+            'right' => 'required',
+            'wrong' => 'required',
+        ]);
         online_exam::where('id' , '=' , $id)->update([
             'online_exam_title' => $request->input('title'),
             'online_exam_datetime' => $request->input('date'),
@@ -126,5 +138,33 @@ class AdminController extends Controller
                 }
             } 
         }
+    }
+
+    public function createquestion(Request $request, $id)
+    {
+        $validatedData = $request->validate([
+            'title' => 'required',
+            'O1' => 'required',
+            'O2' => 'required',
+            'O3' => 'required',
+            'O4' => 'required',
+            'Answer' => 'required',
+        ]);
+
+        $NewQuestion = question::create([
+            'exam_id' => $id,
+            'question_title' => $request->input('title'),
+            'answer_option' => $request->input('Answer'),
+        ]);
+        
+        for($i = 1;$i < 5;$i++){
+            $NewOption = option::create([
+                'question_id' => $NewQuestion->id,
+                'option_number' => $i,
+                'option_title' => $request->input("O")+$i
+            ]);
+        }
+
+        return Redirect::route('admin');
     }
 }

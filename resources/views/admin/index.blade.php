@@ -4,8 +4,8 @@
 <div class="card shadow" id="view">
     <div class="card-header py-3">
         <p class="text-primary m-0 font-weight-bold h2">Exams Info</p>
-        <button style="float: right;" type="button" class="btn btn-primary" data-toggle="modal"
-            data-target="#Model" data-whatever="@mdo">Add New Exam</button>
+        <button style="float: right;" type="button" class="btn btn-primary" data-toggle="modal" data-target="#Model"
+            data-whatever="@mdo">Add New Exam</button>
     </div>
     <div class="card-body">
         <div class="table-responsive table mt-2" role="grid" aria-describedby="dataTable_info">
@@ -43,7 +43,10 @@
                             <label class="badge badge-dark p-1">{{$online_exam->online_exam_status}}</label>
                             @endif
                         </td>
-                        <td></td>
+                        <td>
+                            <button style="float: right;" type="button" class="btn btn-primary" data-toggle="modal"
+                                data-target="#Question" data-whatever="@mdo">Add New Q</button>
+                        </td>
                         <td></td>
                         <td></td>
                         <td>
@@ -66,8 +69,7 @@
     </div>
 </div>
 
-<div class="modal fade" id="Model" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
+<div class="modal fade" id="Model" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -137,7 +139,8 @@
             </div>
             <div class="modal-body">
                 @if($online_exam ?? '')
-                <form method="post" action="{{ route('Admin.editexamp', $online_exam->id)}}" enctype="multipart/form-data">
+                <form method="post" action="{{ route('Admin.editexamp', $online_exam->id)}}"
+                    enctype="multipart/form-data">
                     {{ csrf_field() }}
                     <div class="form-group">
                         <label for="title">Exam Title* :</label>
@@ -147,7 +150,8 @@
 
                     <div class="form-group">
                         <label for="date">Exam Date & Time* : </label>
-                        <input type="datetime-local" class="form-control" name="date" required="" value="{{date("Y-m-d\TH:i:s", strtotime($online_exam->online_exam_datetime))}}" />
+                        <input type="datetime-local" class="form-control" name="date" required=""
+                            value="{{date("Y-m-d\TH:i:s", strtotime($online_exam->online_exam_datetime))}}" />
                     </div>
 
                     <div class="form-group">
@@ -187,25 +191,88 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="Question" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">New Question</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="post" action="{{ route('Admin.createquestion' , $online_exam->id)}}" enctype="multipart/form-data">
+                    {{ csrf_field() }}
+                    <div class="form-group">
+                        <label for="title">Question Title* :</label>
+                        <input type="text" class="form-control" name="title" required=""
+                            placeholder="Enter Question Title" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="O1">Option 1* :</label>
+                        <input type="text" class="form-control" name="O1" required=""
+                            placeholder="Enter Option" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="O2">Option 2* :</label>
+                        <input type="text" class="form-control" name="O2" required=""
+                            placeholder="Enter Option" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="O3">Option 3* :</label>
+                        <input type="text" class="form-control" name="O3" required=""
+                            placeholder="Enter Option" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="O4">Option 4* :</label>
+                        <input type="text" class="form-control" name="O4" required=""
+                            placeholder="Enter Option" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Answer">Answer* :</label>
+                        <select id="Answer" class="form-control" name="Answer" required="">
+                            <option value="" disabled="disabled" selected="true">Select group</option>
+                            <option value="1">Option 1</option>
+                            <option value="2">Option 2</option>
+                            <option value="3">Option 3</option>
+                            <option value="4">Option 4</option>
+                        </select>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <input type="submit" class="btn btn-success float-right" name="Add" value="Add Question" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 <script>
     $(document).ready(function () {
         var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-        setInterval(function(){
+        setInterval(function () {
             $.ajax({
-            url: "/timer",
-            success: function(response) {
-                $("#view").load(" #view");
-            }
+                url: "/timer",
+                success: function (response) {
+                    $("#view").load(" #view");
+                }
             });
-        },1000);
-        setInterval(function(){
+        }, 1000);
+        setInterval(function () {
             $.ajax({
-            url: "/timer2",
-            success: function(response) {
-                $("#view").load(" #view");
-            }
+                url: "/timer2",
+                success: function (response) {
+                    $("#view").load(" #view");
+                }
             });
-        },1000);
+        }, 1000);
     });
 </script>
 @endsection
