@@ -185,7 +185,7 @@
 <script>
     $(document).ready(function () {
         var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-        /*setInterval(function(){
+        setInterval(function(){
             $.ajax({
             url: "/timer",
             success: function(response) {
@@ -200,7 +200,7 @@
 
             }
             });
-        },1000);*/
+        },1000);
         setInterval(function () {
             location.reload();
         }, 60000);
