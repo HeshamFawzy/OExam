@@ -51,7 +51,7 @@ class AdminController extends Controller
             'online_exam_status' => 'pending...',
         ]);
 
-       return redirect()->action('AdminController@index');
+       return Redirect::route('admin');
     }
 
     public function editexam($id)
@@ -71,7 +71,7 @@ class AdminController extends Controller
             'marks_per_right_answer' => $request->input('right'),
             'marks_per_wrong_answer' => $request->input('wrong'),
         ]);
-        
+
         return Redirect::route('admin');
     }
 
