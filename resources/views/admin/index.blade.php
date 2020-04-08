@@ -1,15 +1,15 @@
 @extends('layouts.dashboard')
 
 @section('content')
-<div class="card shadow">
+<div class="card shadow" id="view">
     <div class="card-header py-3">
         <p class="text-primary m-0 font-weight-bold h2">Exams Info</p>
         <button style="float: right;" type="button" class="btn btn-primary" data-toggle="modal"
             data-target="#Model" data-whatever="@mdo">Add New Exam</button>
     </div>
-    <div class="card-body table-container">
-        <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
-            <table class="table dataTable my-0" id="dataTable">
+    <div class="card-body">
+        <div class="table-responsive table mt-2" role="grid" aria-describedby="dataTable_info">
+            <table class="table dataTable my-0">
                 <thead>
                     <tr>
                         <th>Exam Title</th>
@@ -194,7 +194,7 @@
             $.ajax({
             url: "/timer",
             success: function(response) {
-                location.reload();
+                $("#view").load(" #view");
             }
             });
         },60000);
@@ -202,7 +202,7 @@
             $.ajax({
             url: "/timer2",
             success: function(response) {
-                location.reload();
+                $("#view").load(" #view");
             }
             });
         },60000);
