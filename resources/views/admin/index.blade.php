@@ -41,6 +41,9 @@
                         @else
                             <td><label class="badge badge-dark p-1">{{$online_exam->online_exam_status}}</label></td>
                         @endif
+                        @if($online_exam->online_exam_status == "pending...")
+                            <td><a>Add Question</a></td>
+                        @endif
                     </tr>
                     @endforeach
                 </tbody>
@@ -107,7 +110,7 @@
     </div>
 </div>
 <script>
-    $(document).ready(function(){
+    /*$(document).ready(function(){
         var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
         setInterval(function(){
             $.ajax({
@@ -128,6 +131,6 @@
         setInterval(function(){
             location.reload();
         },60000);
-    }); 
+    });*/
 </script>
 @endsection
