@@ -88,7 +88,7 @@ class AdminController extends Controller
                 $now =  Carbon::now('Africa/Cairo')->timestamp;
                 $datetime = Carbon::createFromFormat('Y-m-d H:i:s',$online_exam->online_exam_datetime, 'Africa/Cairo')->timestamp;
                 $difference = $now - $datetime;
-                $duration = (int)$online_exam->online_exam_duration* 60;
+                $duration = (int)$online_exam->online_exam_duration * 60;
                 if($difference > $duration)
                 {
                     online_exam::where('online_exams.id' , '=' , $online_exam->id)->update([
