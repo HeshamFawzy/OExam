@@ -26,7 +26,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($online_exams as $online_exam)
+                    @foreach($online_exams as $key => $online_exam)
                     <tr>
                         <td>{{$online_exam->online_exam_title}}</td>
                         <td>{{$online_exam->online_exam_datetime}}</td>
@@ -44,8 +44,11 @@
                             @endif
                         </td>
                         <td>
-                            <button style="float: right;" type="button" class="btn btn-primary" data-toggle="modal"
-                                data-target="#Question" data-whatever="@mdo">Add New Q</button>
+                            @if($number[1]->num < $online_exam->total_question) <button style="float: right;"
+                                    type="button" class="btn btn-primary" data-toggle="modal" data-target="#Question"
+                                    data-whatever="{{$online_exam->id}}">Add New
+                                    Q</button>
+                                @endif
                         </td>
                         <td></td>
                         <td></td>
@@ -192,7 +195,8 @@
     </div>
 </div>
 
-<div class="modal fade" id="Question" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="Question" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -202,8 +206,14 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form method="post" action="{{ route('Admin.createquestion' , $online_exam->id)}}" enctype="multipart/form-data">
+                @if($online_exam ?? '')
+                <form method="post" action="{{ route('Admin.createquestion')}}" enctype="multipart/form-data">
                     {{ csrf_field() }}
+
+                    <div class="form-group" hidden>
+                        <input type="number" class="form-control" name="id" required="" id="id" />
+                    </div>
+
                     <div class="form-group">
                         <label for="title">Question Title* :</label>
                         <input type="text" class="form-control" name="title" required=""
@@ -212,26 +222,22 @@
 
                     <div class="form-group">
                         <label for="O1">Option 1* :</label>
-                        <input type="text" class="form-control" name="O1" required=""
-                            placeholder="Enter Option" />
+                        <input type="text" class="form-control" name="O1" required="" placeholder="Enter Option" />
                     </div>
 
                     <div class="form-group">
                         <label for="O2">Option 2* :</label>
-                        <input type="text" class="form-control" name="O2" required=""
-                            placeholder="Enter Option" />
+                        <input type="text" class="form-control" name="O2" required="" placeholder="Enter Option" />
                     </div>
 
                     <div class="form-group">
                         <label for="O3">Option 3* :</label>
-                        <input type="text" class="form-control" name="O3" required=""
-                            placeholder="Enter Option" />
+                        <input type="text" class="form-control" name="O3" required="" placeholder="Enter Option" />
                     </div>
 
                     <div class="form-group">
                         <label for="O4">Option 4* :</label>
-                        <input type="text" class="form-control" name="O4" required=""
-                            placeholder="Enter Option" />
+                        <input type="text" class="form-control" name="O4" required="" placeholder="Enter Option" />
                     </div>
 
                     <div class="form-group">
@@ -250,6 +256,7 @@
                         <input type="submit" class="btn btn-success float-right" name="Add" value="Add Question" />
                     </div>
                 </form>
+                @endif
             </div>
         </div>
     </div>
@@ -273,6 +280,15 @@
                 }
             });
         }, 1000);
+        $('#Question').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget) // Button that triggered the modal
+            var recipient = button.data('whatever') // Extract info from data-* attributes
+            // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+            // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+            var modal = $(this)
+            modal.find('.modal-title').text('New message to ' + recipient)
+            modal.find('#id').val(recipient)
+        })
     });
 </script>
 @endsection

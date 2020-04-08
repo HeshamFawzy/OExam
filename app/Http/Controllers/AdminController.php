@@ -30,7 +30,14 @@ class AdminController extends Controller
     {
         $online_exams = DB::table('online_exams')->paginate(3);
 
-        return view('admin.index', ['online_exams' => $online_exams]);
+        $number = DB::table('questions')
+        ->select(DB::raw('count(*) as num'))
+        ->groupBy('exam_id')
+        ->get();
+        
+
+
+        return view('admin.index', ['online_exams' => $online_exams, 'number' => $number]);
     }
 
     public function create(Request $request)
@@ -140,9 +147,10 @@ class AdminController extends Controller
         }
     }
 
-    public function createquestion(Request $request, $id)
+    public function createquestion(Request $request)
     {
         $validatedData = $request->validate([
+            'id' => 'required',
             'title' => 'required',
             'O1' => 'required',
             'O2' => 'required',
@@ -152,7 +160,7 @@ class AdminController extends Controller
         ]);
 
         $NewQuestion = question::create([
-            'exam_id' => $id,
+            'exam_id' => $request->input('id'),
             'question_title' => $request->input('title'),
             'answer_option' => $request->input('Answer'),
         ]);
