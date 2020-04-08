@@ -16,7 +16,7 @@ class CreateOnlineExamsTable extends Migration
         Schema::create('online_exams', function (Blueprint $table) {
             $table->increments('id');
             $table->Integer('admin_id')->unsigned();
-            $table->string('online_exam_title');
+            $table->string('online_exam_title')->unique();
             $table->dateTime('online_exam_datetime');
             $table->string('online_exam_duration');
             $table->Integer('total_question');

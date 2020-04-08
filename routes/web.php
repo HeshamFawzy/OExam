@@ -17,11 +17,11 @@ Route::get('/', function () {
 
 Auth::routes();
 
+Route::get('/start', 'HomeController@start')->name('start');
+
 Route::get('/verification', 'HomeController@verification')->name('verification');
 
 Route::group(["middleware" => ["auth","basicadmin"]], function(){
-
-    Route::get('/start', 'HomeController@start')->name('start');
 
     Route::get('/Basicindex', 'BasicAdminController@index')->name('basicadmin');
 

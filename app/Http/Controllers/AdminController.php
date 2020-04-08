@@ -24,7 +24,7 @@ class AdminController extends Controller
 
     public function index()
     {
-        $online_exams = DB::table('online_exams')->get();
+        $online_exams = DB::table('online_exams')->paginate(3);
 
         return view('admin.index', ['online_exams' => $online_exams]);
     }

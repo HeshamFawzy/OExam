@@ -60,6 +60,9 @@
                 </tbody>
             </table>
         </div>
+        <div style="float: right;">
+            {{ $online_exams->links("pagination::bootstrap-4") }}
+        </div>
     </div>
 </div>
 
@@ -133,6 +136,7 @@
                 </button>
             </div>
             <div class="modal-body">
+                @if($online_exam ?? '')
                 <form method="post" action="{{ route('Admin.editexamp', $online_exam->id)}}" enctype="multipart/form-data">
                     {{ csrf_field() }}
                     <div class="form-group">
@@ -178,6 +182,7 @@
                         <input type="submit" class="btn btn-success float-right" name="Add" value="Edit Exam" />
                     </div>
                 </form>
+                @endif
             </div>
         </div>
     </div>
@@ -192,7 +197,7 @@
                 
             }
             });
-        },1000);
+        },60000);
         setInterval(function(){
             $.ajax({
             url: "/timer2",
@@ -200,10 +205,7 @@
 
             }
             });
-        },1000);
-        setInterval(function () {
-            location.reload();
-        }, 60000);
+        },60000);
     });
 </script>
 @endsection
