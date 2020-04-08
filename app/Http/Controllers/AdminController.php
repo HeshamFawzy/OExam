@@ -71,10 +71,6 @@ class AdminController extends Controller
                 }
             }      
         }
-        $response = array(
-            'status' => $now
-        );
-        return response()->json($response);
     }
 
     public function timer2()

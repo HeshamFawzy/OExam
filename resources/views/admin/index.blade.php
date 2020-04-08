@@ -113,7 +113,7 @@
             $.ajax({
             url: "/timer",
             success: function(response) {
-                console.log(response.status);
+                
             }
             });
         },1000);
@@ -125,6 +125,9 @@
             }
             });
         },1000);
+        setInterval(function(){
+            location.reload();
+        },60000);
     }); 
 </script>
 @endsection
