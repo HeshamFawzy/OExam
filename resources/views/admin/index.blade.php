@@ -194,7 +194,7 @@
             $.ajax({
             url: "/timer",
             success: function(response) {
-                
+                location.reload();
             }
             });
         },60000);
@@ -202,7 +202,7 @@
             $.ajax({
             url: "/timer2",
             success: function(response) {
-
+                location.reload();
             }
             });
         },60000);
