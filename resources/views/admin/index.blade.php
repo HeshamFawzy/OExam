@@ -197,7 +197,7 @@
                 $("#view").load(" #view");
             }
             });
-        },60000);
+        },1000);
         setInterval(function(){
             $.ajax({
             url: "/timer2",
@@ -205,7 +205,7 @@
                 $("#view").load(" #view");
             }
             });
-        },60000);
+        },1000);
     });
 </script>
 @endsection
