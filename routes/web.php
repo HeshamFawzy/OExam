@@ -41,17 +41,13 @@ Route::group(["middleware" => ["auth","admin"]], function(){
 
     Route::GET('/timer2', 'AdminController@timer2')->name('Admin.timer2');
 
-    Route::GET('/editexam/{id}', 'AdminController@editexam')->name('Admin.editexam');
-
-    Route::post('/editexamp', 'AdminController@editexamp')->name('Admin.editexamp');
+    Route::post('/editexamp/{id}', 'AdminController@editexamp')->name('Admin.editexamp');
 
     Route::GET('/deleteexam/{id}', 'AdminController@deleteexam')->name('Admin.deleteexam');
 
     Route::post('/createquestion', 'AdminController@createquestion')->name('Admin.createquestion');
 
     Route::GET('/viewquestions/{id}', 'AdminController@viewquestions')->name('Admin.viewquestions');
-
-    Route::GET('/editquestion/{id}', 'AdminController@editquestion')->name('Admin.editquestion');
 
     Route::post('/editquestionp/{id}', 'AdminController@editquestionp')->name('Admin.editquestionp');
 });

@@ -4,8 +4,8 @@
 <div class="card shadow" id="view">
     <div class="card-header py-3">
         <p class="text-primary m-0 font-weight-bold h2">Exams Info</p>
-        <button style="float: right;" type="button" class="btn btn-primary" data-toggle="modal" data-target="#Model"
-            data-whatever="@mdo">Add New Exam</button>
+        <button style="float: right;" type="button" class="btn btn-primary" data-toggle="modal" data-target="#Model">Add
+            New Exam</button>
     </div>
     <div class="card-body">
         <div class="table-responsive table mt-2" role="grid" aria-describedby="dataTable_info">
@@ -44,14 +44,15 @@
                             @endif
                         </td>
                         <td>
-                            @if($number[$index]->num <= $online_exam->total_question - 1 && $online_exam->online_exam_status == "pending...")
+                            @if($number[$index]->num <= $online_exam->total_question - 1 &&
+                                $online_exam->online_exam_status == "pending...")
                                 <button style="float: right;" type="button" class="btn btn-primary" data-toggle="modal"
                                     data-target="#Question" data-id="{{$online_exam->id}}">Add New
                                     Q</button>
-                            @elseif($number[$index]->num > 1)
+                                @elseif($number[$index]->num > 1)
                                 <a class="btn btn-warning" href="{{ url('/viewquestions' , $online_exam->id)}}">View
                                     Questions</a>
-                            @endif
+                                @endif
 
                         </td>
                         <td></td>

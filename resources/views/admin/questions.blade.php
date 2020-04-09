@@ -13,16 +13,19 @@
                         <th>Question Titile</th>
                         <th>Right Option</th>
                         <th>Action</th>
+                        <th>op1</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($questions as $question)
+                    @foreach($questions->id as $key => $question)
                     <tr>
                         <td>{{$question->question_title}}</td>
                         <td>{{$question->answer_option}} Option</td>
                         <td>
-                            <a href="{{ url('/editquestion' , $question->id)}}" class="btn btn-success" name="edit"
-                                >Edit</a>
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#EditModel"
+                                data-id="{{$question->id}}" 
+                                data-title="{{$question->question_title}}"
+                                >Edit</button>
                         </td>
                     </tr>
                     @endforeach
@@ -37,7 +40,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">New Exam</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Edit Question</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -47,15 +50,36 @@
                 <form method="post" action="{{ route('Admin.editquestionp', $question->id)}}"
                     enctype="multipart/form-data">
                     {{ csrf_field() }}
+
+                    <div class="form-group" hidden>
+                        <input type="number" class="form-control" name="id" required="" id="id" />
+                    </div>
+
                     <div class="form-group">
                         <label for="title">Question Title* :</label>
-                        <input type="text" class="form-control" name="title" required="" placeholder="Enter Exam Title"
-                        />
+                        <input type="text" class="form-control" name="title" required="" id="title" />
                     </div>
-                        <div class="form-group">
-                            <label for="O1">Option 1* :</label>
-                        <input type="text" class="form-control" name="O1" required="" />
-                        </div>
+
+                    <div class="form-group">
+                        <label for="O1">Option 1* :</label>
+                        <input type="text" class="form-control" name="O1" required="" id="O1" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="O2">Option 2* :</label>
+                        <input type="text" class="form-control" name="O2" required="" id="O2" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="O3">Option 3* :</label>
+                        <input type="text" class="form-control" name="O3" required="" id="O3" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="O4">Option 4* :</label>
+                        <input type="text" class="form-control" name="O4" required="" id="O4" />
+                    </div>
+
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                         <input type="submit" class="btn btn-success float-right" name="Add" value="Edit Question" />
@@ -66,4 +90,25 @@
         </div>
     </div>
 </div>
+<script>
+    $(document).ready(function () {
+        $('#EditModel').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget)
+            var id = button.data('id');
+            var title = button.data('title');
+            var O1 = button.data('o1');
+            var O2 = button.data('o2');
+            var O3 = button.data('o3');
+            var O4 = button.data('o4');
+            console.log(O1);
+            var modal = $(this)
+            modal.find('#id').val(id)
+            modal.find('#title').val(title)
+            modal.find('#O1').val(O1)
+            modal.find('#O2').val(O2)
+            modal.find('#O3').val(O3)
+            modal.find('#O4').val(O4)
+        })
+    });
+</script>
 @endsection

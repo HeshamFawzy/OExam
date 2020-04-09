@@ -62,14 +62,7 @@ class AdminController extends Controller
         ]);
 
        return Redirect::route('admin');
-    }
-
-    public function editexam($id)
-    {
-        $online_exam = online_exam::where('id', $id)->first();
-
-        return Redirect::back()->with('online_exam' , $online_exam);
-    }
+    }  
 
     public function editexamp(Request $request)
     {
@@ -178,30 +171,21 @@ class AdminController extends Controller
 
     public function viewquestions($id)
     {
-        $questions = DB::table('questions')
-        ->where('exam_id' , $id)
-        ->get();
+        $questions = DB::select("SELECT
+        questions.question_title,
+        questions.answer_option,
+        options.option_number,
+        options.option_title,
+        questions.id
+        FROM options
+        INNER JOIN questions
+        ON options.question_id = questions.id");
+        
+        $collection = collect($questions);
 
+        //dd($collection);
 
-        foreach($questions as $key => $question)
-        {
-            $options = DB::table('options')
-            ->where('question_id' , $questions[$key]->id)
-            ->get();
-        }
-
-
-
-        return view('admin.questions')->with('questions' , $questions)->with('$options' , $options);
+        return view('admin.questions')->with('questions' , $questions);
     }
 
-    public function editquestion($id)
-    {   
-        $question = DB::table('questions')
-        ->join('options', 'questions.id', '=', 'options.question_id')
-        ->where('questions.id' , $id)
-        ->get();
-
-        return Redirect::back()->with(['question' => $question]);
-    }
 }
