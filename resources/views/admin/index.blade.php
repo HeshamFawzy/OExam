@@ -44,7 +44,7 @@
                             @endif
                         </td>
                         <td>
-                            @if($number->count() > 0)
+                            @if($number[$index] ?? '')
                                 @if($number[$index]->num < $online_exam->total_question)
                                     <button style="float: right;" type="button" class="btn btn-primary" data-toggle="modal"
                                         data-target="#Question" data-whatever="{{$online_exam->id}}">Add New

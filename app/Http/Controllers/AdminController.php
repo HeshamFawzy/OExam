@@ -35,8 +35,6 @@ class AdminController extends Controller
         ->groupBy('exam_id')
         ->get();
 
-        //dd($number);
-
         return view('admin.index', ['online_exams' => $online_exams, 'number' => $number]);
     }
 
@@ -178,12 +176,34 @@ class AdminController extends Controller
 
     public function viewquestions($id)
     {
+
         $questions = DB::table('questions')
         ->where('exam_id' , $id)
         ->get();
 
-        dd($questions);
+        //dd($questions);
+        foreach($questions as $key => $question)
+        {
+            $options = DB::table('options')
+            ->where('question_id' , $questions[$key]->id)
+            ->get();
+        }
 
-        return view('admin.questions');
+        //dd($options);
+
+        return view('admin.questions')->with('questions' , $questions)->with('$options' , $options);
+    }
+
+    public function editquestion($id)
+    {   
+        $question = DB::table('questions')
+        ->join('options', 'questions.id', '=', 'options.question_id')
+        ->where('questions.id' , $id)
+        ->get();
+
+
+        dd($question);
+
+        return Redirect::back()->with(['question' => $question]);
     }
 }
