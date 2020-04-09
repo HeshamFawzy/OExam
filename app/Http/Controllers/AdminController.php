@@ -30,10 +30,13 @@ class AdminController extends Controller
     {
         $online_exams = DB::table('online_exams')->paginate(3);
 
-        $number = DB::table('questions')
-        ->select(DB::raw('count(*) as num'))
-        ->groupBy('exam_id')
-        ->get();
+        $number = DB::select("SELECT COUNT(questions.id) AS num
+        FROM questions
+        RIGHT OUTER JOIN online_exams
+        ON questions.exam_id = online_exams.id
+        GROUP BY online_exams.id");
+        
+        //dd($number);
 
         return view('admin.index', ['online_exams' => $online_exams, 'number' => $number]);
     }
@@ -70,9 +73,10 @@ class AdminController extends Controller
         return Redirect::back()->with('online_exam' , $online_exam);
     }
 
-    public function editexamp(Request $request, $id)
+    public function editexamp(Request $request)
     {
         $validatedData = $request->validate([
+            'id'    => 'required',
             'title' => 'required',
             'date' => 'required',
             'duration' => 'required',
@@ -80,7 +84,7 @@ class AdminController extends Controller
             'right' => 'required',
             'wrong' => 'required',
         ]);
-        online_exam::where('id' , '=' , $id)->update([
+        online_exam::where('id' , '=' , $request->input('id'))->update([
             'online_exam_title' => $request->input('title'),
             'online_exam_datetime' => $request->input('date'),
             'online_exam_duration' => $request->input('duration'),

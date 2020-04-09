@@ -44,27 +44,28 @@
                             @endif
                         </td>
                         <td>
-                            @if($number[$index] ?? '')
-                                @if($number[$index]->num < $online_exam->total_question)
-                                    <button style="float: right;" type="button" class="btn btn-primary" data-toggle="modal"
-                                        data-target="#Question" data-whatever="{{$online_exam->id}}">Add New
-                                        Q</button>
-                                @else
-                                    <a class="btn btn-warning" href="{{ url('/viewquestions' , $online_exam->id)}}">View
-                                        Questions</a>
-                                @endif
-                            @else
+                            @if($number[$index]->num <= $online_exam->total_question - 1 && $online_exam->online_exam_status == "pending...")
                                 <button style="float: right;" type="button" class="btn btn-primary" data-toggle="modal"
-                                data-target="#Question" data-whatever="{{$online_exam->id}}">Add New
-                                Q</button>
+                                    data-target="#Question" data-id="{{$online_exam->id}}">Add New
+                                    Q</button>
+                            @else
+                                <a class="btn btn-warning" href="{{ url('/viewquestions' , $online_exam->id)}}">View
+                                    Questions</a>
                             @endif
+
                         </td>
                         <td></td>
                         <td></td>
                         <td>
                             @if($online_exam->online_exam_status == "pending...")
-                            <a href="{{ url('/editexam' , $online_exam->id)}}" class="btn btn-success" name="edit"
-                                data-toggle="modal" data-target="#EditModel" data-whatever="@mdo">Edit</a>
+                            <a href="{{ url('/editexam')}}" class="btn btn-success" name="edit" data-toggle="modal"
+                                data-target="#EditModel" data-id="{{$online_exam->id}}"
+                                data-title="{{$online_exam->online_exam_title}}"
+                                data-date="{{date('Y-m-d\TH:i:s', strtotime($online_exam->online_exam_datetime))}}"
+                                data-duration="{{$online_exam->online_exam_duration}}"
+                                data-total="{{$online_exam->total_question}}"
+                                data-right="{{$online_exam->marks_per_right_answer}}"
+                                data-wrong="{{$online_exam->marks_per_wrong_answer}}">Edit</a>
                             <a href="{{ url('/deleteexam' , $online_exam->id)}}" class="btn btn-danger"
                                 name="delete">Delete</a>
                             @endif
@@ -154,44 +155,45 @@
                 <form method="post" action="{{ route('Admin.editexamp', $online_exam->id)}}"
                     enctype="multipart/form-data">
                     {{ csrf_field() }}
+
+                    <div class="form-group" hidden>
+                        <input type="number" class="form-control" name="id" required="" id="id" />
+                    </div>
+
                     <div class="form-group">
                         <label for="title">Exam Title* :</label>
                         <input type="text" class="form-control" name="title" required="" placeholder="Enter Exam Title"
-                            value="{{$online_exam->online_exam_title}}" />
+                            id="title" />
                     </div>
 
                     <div class="form-group">
                         <label for="date">Exam Date & Time* : </label>
-                        <input type="datetime-local" class="form-control" name="date" required=""
-                            value="{{date("Y-m-d\TH:i:s", strtotime($online_exam->online_exam_datetime))}}" />
+                        <input type="datetime-local" class="form-control" name="date" required="" id="date" />
                     </div>
 
                     <div class="form-group">
                         <label for="duration">Exam Duration* :(Minutes)</label>
                         <input type="number" class="form-control" name="duration" required=""
-                            placeholder="Enter Exam Duration in Minutes"
-                            value="{{$online_exam->online_exam_duration}}" />
+                            placeholder="Enter Exam Duration in Minutes" id="duration" />
                     </div>
 
                     <div class="form-group">
                         <label for="total">Total Question* :(Number)</label>
                         <input type="number" class="form-control" name="total" required=""
-                            placeholder="Enter Exam Total Questions Number" value="{{$online_exam->total_question}}" />
+                            placeholder="Enter Exam Total Questions Number" id="total" />
                     </div>
 
 
                     <div class="form-group">
                         <label for="right">Marks For Right Answer* :(Marks)</label>
                         <input type="number" class="form-control" name="right" required=""
-                            placeholder="Enter Exam Marks Per Right Answer"
-                            value="{{$online_exam->marks_per_right_answer}}" />
+                            placeholder="Enter Exam Marks Per Right Answer" id="right" />
                     </div>
 
                     <div class="form-group">
                         <label for="wrong">Marks For Wrong Answer* :(Marks)</label>
                         <input type="number" class="form-control" name="wrong" required=""
-                            placeholder="Enter Exam Marks Per Wrong Answer"
-                            value="{{$online_exam->marks_per_wrong_answer}}" />
+                            placeholder="Enter Exam Marks Per Wrong Answer" id="wrong" />
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -219,8 +221,8 @@
                 <form method="post" action="{{ route('Admin.createquestion')}}" enctype="multipart/form-data">
                     {{ csrf_field() }}
 
-                    <div class="form-group" hidden>
-                        <input type="number" class="form-control" name="id" required="" id="id" />
+                    <div class="form-group">
+                        <input type="number" class="form-control" name="id" required="" id="examid" />
                     </div>
 
                     <div class="form-group">
@@ -290,13 +292,28 @@
             });
         }, 10000);
         $('#Question').on('show.bs.modal', function (event) {
-            var button = $(event.relatedTarget) // Button that triggered the modal
-            var recipient = button.data('whatever') // Extract info from data-* attributes
-            // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-            // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+            var button = $(event.relatedTarget)
+            var id = button.data('id')
             var modal = $(this)
-            modal.find('.modal-title').text('New message to ' + recipient)
-            modal.find('#id').val(recipient)
+            modal.find('#examid').val(id)
+        });
+        $('#EditModel').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget)
+            var id = button.data('id');
+            var title = button.data('title');
+            var date = button.data('date');
+            var duration = button.data('duration');
+            var total = button.data('total');
+            var right = button.data('right');
+            var wrong = button.data('wrong');
+            var modal = $(this)
+            modal.find('#id').val(id)
+            modal.find('#title').val(title)
+            modal.find('#date').val(date)
+            modal.find('#duration').val(duration)
+            modal.find('#total').val(total)
+            modal.find('#right').val(right)
+            modal.find('#wrong').val(wrong)
         })
     });
 </script>
