@@ -35,7 +35,7 @@ class AdminController extends Controller
         ->groupBy('exam_id')
         ->get();
 
-        //dd($number[2]->num);
+        //dd($number);
 
         return view('admin.index', ['online_exams' => $online_exams, 'number' => $number]);
     }
@@ -174,5 +174,16 @@ class AdminController extends Controller
         }
 
         return Redirect::route('admin');
+    }
+
+    public function viewquestions($id)
+    {
+        $questions = DB::table('questions')
+        ->where('exam_id' , $id)
+        ->get();
+
+        dd($questions);
+
+        return view('admin.questions');
     }
 }

@@ -48,6 +48,8 @@ Route::group(["middleware" => ["auth","admin"]], function(){
     Route::GET('/deleteexam/{id}', 'AdminController@deleteexam')->name('Admin.deleteexam');
 
     Route::post('/createquestion', 'AdminController@createquestion')->name('Admin.createquestion');
+
+    Route::GET('/viewquestions/{id}', 'AdminController@viewquestions')->name('Admin.viewquestions');
 });
 
 Route::group(["middleware" => ["auth","user"]], function(){

@@ -44,11 +44,16 @@
                             @endif
                         </td>
                         <td>
-                            @if($number[$index]->num <= $online_exam->total_question)
-                                <button style="float: right;" type="button" class="btn btn-primary" data-toggle="modal"
-                                    data-target="#Question" data-whatever="{{$online_exam->id}}">Add New
-                                    Q</button>
-                            @elseif
+                            @if($number->count() > 0)
+                                @if($number[$index]->num < $online_exam->total_question)
+                                    <button style="float: right;" type="button" class="btn btn-primary" data-toggle="modal"
+                                        data-target="#Question" data-whatever="{{$online_exam->id}}">Add New
+                                        Q</button>
+                                @else
+                                    <a class="btn btn-warning" href="{{ url('/viewquestions' , $online_exam->id)}}">View
+                                        Questions</a>
+                                @endif
+                            @else
                                 <button style="float: right;" type="button" class="btn btn-primary" data-toggle="modal"
                                 data-target="#Question" data-whatever="{{$online_exam->id}}">Add New
                                 Q</button>
