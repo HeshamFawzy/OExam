@@ -34,8 +34,8 @@ class AdminController extends Controller
         ->select(DB::raw('count(*) as num'))
         ->groupBy('exam_id')
         ->get();
-        
 
+        //dd($number[2]->num);
 
         return view('admin.index', ['online_exams' => $online_exams, 'number' => $number]);
     }

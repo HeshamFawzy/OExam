@@ -26,7 +26,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($online_exams as $key => $online_exam)
+                    @foreach($online_exams as $index => $online_exam)
                     <tr>
                         <td>{{$online_exam->online_exam_title}}</td>
                         <td>{{$online_exam->online_exam_datetime}}</td>
@@ -44,11 +44,15 @@
                             @endif
                         </td>
                         <td>
-                            @if($number[1]->num < $online_exam->total_question) <button style="float: right;"
-                                    type="button" class="btn btn-primary" data-toggle="modal" data-target="#Question"
-                                    data-whatever="{{$online_exam->id}}">Add New
+                            @if($number[$index]->num <= $online_exam->total_question)
+                                <button style="float: right;" type="button" class="btn btn-primary" data-toggle="modal"
+                                    data-target="#Question" data-whatever="{{$online_exam->id}}">Add New
                                     Q</button>
-                                @endif
+                            @elseif
+                                <button style="float: right;" type="button" class="btn btn-primary" data-toggle="modal"
+                                data-target="#Question" data-whatever="{{$online_exam->id}}">Add New
+                                Q</button>
+                            @endif
                         </td>
                         <td></td>
                         <td></td>
@@ -271,7 +275,7 @@
                     $("#view").load(" #view");
                 }
             });
-        }, 1000);
+        }, 10000);
         setInterval(function () {
             $.ajax({
                 url: "/timer2",
@@ -279,7 +283,7 @@
                     $("#view").load(" #view");
                 }
             });
-        }, 1000);
+        }, 10000);
         $('#Question').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget) // Button that triggered the modal
             var recipient = button.data('whatever') // Extract info from data-* attributes
