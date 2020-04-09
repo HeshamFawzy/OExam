@@ -48,7 +48,7 @@
                                 <button style="float: right;" type="button" class="btn btn-primary" data-toggle="modal"
                                     data-target="#Question" data-id="{{$online_exam->id}}">Add New
                                     Q</button>
-                            @else
+                            @elseif($number[$index]->num > 1)
                                 <a class="btn btn-warning" href="{{ url('/viewquestions' , $online_exam->id)}}">View
                                     Questions</a>
                             @endif

@@ -35,8 +35,6 @@ class AdminController extends Controller
         RIGHT OUTER JOIN online_exams
         ON questions.exam_id = online_exams.id
         GROUP BY online_exams.id");
-        
-        //dd($number);
 
         return view('admin.index', ['online_exams' => $online_exams, 'number' => $number]);
     }
@@ -180,12 +178,11 @@ class AdminController extends Controller
 
     public function viewquestions($id)
     {
-
         $questions = DB::table('questions')
         ->where('exam_id' , $id)
         ->get();
 
-        //dd($questions);
+        dd($questions);
         foreach($questions as $key => $question)
         {
             $options = DB::table('options')
@@ -193,7 +190,7 @@ class AdminController extends Controller
             ->get();
         }
 
-        //dd($options);
+        dd($options);
 
         return view('admin.questions')->with('questions' , $questions)->with('$options' , $options);
     }
