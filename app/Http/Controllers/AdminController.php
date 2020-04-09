@@ -182,7 +182,7 @@ class AdminController extends Controller
         ->where('exam_id' , $id)
         ->get();
 
-        dd($questions);
+
         foreach($questions as $key => $question)
         {
             $options = DB::table('options')
@@ -190,7 +190,7 @@ class AdminController extends Controller
             ->get();
         }
 
-        dd($options);
+
 
         return view('admin.questions')->with('questions' , $questions)->with('$options' , $options);
     }
@@ -201,9 +201,6 @@ class AdminController extends Controller
         ->join('options', 'questions.id', '=', 'options.question_id')
         ->where('questions.id' , $id)
         ->get();
-
-
-        dd($question);
 
         return Redirect::back()->with(['question' => $question]);
     }
