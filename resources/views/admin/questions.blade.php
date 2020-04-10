@@ -13,7 +13,6 @@
                         <th>Question Titile</th>
                         <th>Right Option</th>
                         <th>Action</th>
-                        <th>op1</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -23,9 +22,9 @@
                         <td>{{$question->answer_option}} Option</td>
                         <td>
                             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#EditModel"
-                                data-id="{{$question->id}}" data-title="{{$question->question_title}}"
-
-                                >Edit</button>
+                                data-id="{{$question->id}}" data-title="{{$question->question_title}}">Edit</button>
+                                <a href="{{ url('/deletequestion' , $question->id)}}" class="btn btn-danger"
+                                    name="delete">Delete</a>
                         </td>
                     </tr>
                     @endforeach

@@ -212,4 +212,14 @@ class AdminController extends Controller
         return redirect()->back();
     }
 
+    public function deletequestion($id)
+    {
+        $question = question::where('id', $id)->first();
+        if($question != null){
+            $question->delete();
+        }
+
+        return redirect()->back();
+    }
+
 }
