@@ -173,9 +173,13 @@ class AdminController extends Controller
     {
         $questions = DB::table('questions')->get();
 
-        //dd($questions);
+        foreach($questions as $key => $question)
+        {
+            $options[$key] = DB::table('options')->where('question_id' , $question->id)->get();
+        }
 
-        return view('admin.questions')->with('questions' , $questions);
+        //dd($options[$key][0]->option_title);
+        return view('admin.questions')->with('questions' , $questions)->with('options' , $options);
     }
 
 }

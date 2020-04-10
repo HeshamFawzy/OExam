@@ -25,6 +25,12 @@
                             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#EditModel"
                                 data-id="{{$question->id}}" 
                                 data-title="{{$question->question_title}}"
+                                @foreach($options as $key2 => $option)
+                                    data-o1="{{$option[0]->option_title}}"
+                                    data-o2="{{$option[1]->option_title}}"
+                                    data-o3="{{$option[2]->option_title}}"
+                                    data-o4="{{$option[3]->option_title}}"
+                                @endforeach
                                 >Edit</button>
                         </td>
                     </tr>
