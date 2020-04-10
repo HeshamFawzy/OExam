@@ -23,14 +23,8 @@
                         <td>{{$question->answer_option}} Option</td>
                         <td>
                             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#EditModel"
-                                data-id="{{$question->id}}" 
-                                data-title="{{$question->question_title}}"
-                                @foreach($options as $key2 => $option)
-                                    data-o1="{{$option[0]->option_title}}"
-                                    data-o2="{{$option[1]->option_title}}"
-                                    data-o3="{{$option[2]->option_title}}"
-                                    data-o4="{{$option[3]->option_title}}"
-                                @endforeach
+                                data-id="{{$question->id}}" data-title="{{$question->question_title}}"
+                                
                                 >Edit</button>
                         </td>
                     </tr>
@@ -106,7 +100,6 @@
             var O2 = button.data('o2');
             var O3 = button.data('o3');
             var O4 = button.data('o4');
-            console.log(O1);
             var modal = $(this)
             modal.find('#id').val(id)
             modal.find('#title').val(title)

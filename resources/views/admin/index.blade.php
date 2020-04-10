@@ -59,7 +59,7 @@
                         <td></td>
                         <td>
                             @if($online_exam->online_exam_status == "pending...")
-                            <a href="{{ url('/editexam')}}" class="btn btn-success" name="edit" data-toggle="modal"
+                            <a class="btn btn-success" name="edit" data-toggle="modal"
                                 data-target="#EditModel" data-id="{{$online_exam->id}}"
                                 data-title="{{$online_exam->online_exam_title}}"
                                 data-date="{{date('Y-m-d\TH:i:s', strtotime($online_exam->online_exam_datetime))}}"

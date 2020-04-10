@@ -171,14 +171,9 @@ class AdminController extends Controller
 
     public function viewquestions($id)
     {
-        $questions = DB::table('questions')->get();
-
-        foreach($questions as $key => $question)
-        {
-            $options[$key] = DB::table('options')->where('question_id' , $question->id)->get();
-        }
-
-        return view('admin.questions')->with('questions' , $questions)->with('options' , $options);
+        $questions = DB::table('questions')->where('exam_id' , $id)->get();
+        
+        return view('admin.questions')->with('questions' , $questions);
     }
 
 }
