@@ -224,7 +224,15 @@ class AdminController extends Controller
 
     public function viewenroll($id)
     {
-        dd($id);
+        $Enrolls = DB::table('user_exam_enrolls')
+        ->join('examiners' , 'examiners.id' , '=' , 'user_exam_enrolls.examiner_id')
+        ->join('users' , 'users.id' , '=' , 'examiners.user_id')
+        ->where('exam_id' , '=' , $id)
+        ->get();
+
+        //dd($Enrolls);
+
+        return view('admin.enroll')->with('Enrolls' , $Enrolls);
     }
 
 }

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="form-group" style="background-color: white;padding: 10px;">
+<div class="form-group container" style="background-color: white;padding: 10px;">
     <label for="exams" class="h4">Choose Exam :</label>
     <select id="exams" class="form-control" name="exams" required="" id="myselect" onchange="openPopup()">
         <option value="" disabled="disabled" selected="true">Select Exam</option>
