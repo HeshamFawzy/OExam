@@ -24,7 +24,7 @@
                         <td>
                             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#EditModel"
                                 data-id="{{$question->id}}" data-title="{{$question->question_title}}"
-                                
+
                                 >Edit</button>
                         </td>
                     </tr>
@@ -96,17 +96,9 @@
             var button = $(event.relatedTarget)
             var id = button.data('id');
             var title = button.data('title');
-            var O1 = button.data('o1');
-            var O2 = button.data('o2');
-            var O3 = button.data('o3');
-            var O4 = button.data('o4');
             var modal = $(this)
             modal.find('#id').val(id)
             modal.find('#title').val(title)
-            modal.find('#O1').val(O1)
-            modal.find('#O2').val(O2)
-            modal.find('#O3').val(O3)
-            modal.find('#O4').val(O4)
         })
     });
 </script>
