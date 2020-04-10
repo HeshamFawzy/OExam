@@ -162,7 +162,7 @@ class AdminController extends Controller
             $NewOption = option::create([
                 'question_id' => $NewQuestion->id,
                 'option_number' => $i,
-                'option_title' => $request->input("O")+$i
+                'option_title' => $request->input("O".$i)
             ]);
         }
 
@@ -178,7 +178,6 @@ class AdminController extends Controller
             $options[$key] = DB::table('options')->where('question_id' , $question->id)->get();
         }
 
-        //dd($options[$key][0]->option_title);
         return view('admin.questions')->with('questions' , $questions)->with('options' , $options);
     }
 
