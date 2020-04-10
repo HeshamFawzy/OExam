@@ -222,7 +222,7 @@
                 <form method="post" action="{{ route('Admin.createquestion')}}" enctype="multipart/form-data">
                     {{ csrf_field() }}
 
-                    <div class="form-group">
+                    <div class="form-group" hidden>
                         <input type="number" class="form-control" name="id" required="" id="examid" />
                     </div>
 
