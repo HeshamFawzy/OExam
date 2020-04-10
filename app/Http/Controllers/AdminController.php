@@ -222,4 +222,9 @@ class AdminController extends Controller
         return redirect()->back();
     }
 
+    public function viewenroll($id)
+    {
+        dd($id);
+    }
+
 }

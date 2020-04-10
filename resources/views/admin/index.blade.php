@@ -53,15 +53,14 @@
                                 <a class="btn btn-warning" href="{{ url('/viewquestions' , $online_exam->id)}}">View
                                     Questions</a>
                                 @endif
-
                         </td>
-                        <td></td>
+                        <td> <a class="btn btn-dark" href="{{ url('/viewenroll' , $online_exam->id)}}">View
+                                Enroll</a></td>
                         <td></td>
                         <td>
                             @if($online_exam->online_exam_status == "pending...")
-                            <a class="btn btn-success" name="edit" data-toggle="modal"
-                                data-target="#EditModel" data-id="{{$online_exam->id}}"
-                                data-title="{{$online_exam->online_exam_title}}"
+                            <a class="btn btn-success" name="edit" data-toggle="modal" data-target="#EditModel"
+                                data-id="{{$online_exam->id}}" data-title="{{$online_exam->online_exam_title}}"
                                 data-date="{{date('Y-m-d\TH:i:s', strtotime($online_exam->online_exam_datetime))}}"
                                 data-duration="{{$online_exam->online_exam_duration}}"
                                 data-total="{{$online_exam->total_question}}"

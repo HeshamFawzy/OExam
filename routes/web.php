@@ -52,13 +52,13 @@ Route::group(["middleware" => ["auth","admin"]], function(){
     Route::post('/editquestionp/{id}', 'AdminController@editquestionp')->name('Admin.editquestionp');
 
     Route::GET('/deletequestion/{id}', 'AdminController@deletequestion')->name('Admin.deletequestion');
+
+    Route::GET('/viewenroll/{id}', 'AdminController@viewenroll')->name('Admin.viewenroll');
 });
 
 Route::group(["middleware" => ["auth","user"]], function(){
 
-    Route::get('/Userindex', function () {
-        return view('user.index');
-    })->name('user');
+    Route::get('/Userindex', 'UserController@index')->name('user');
 
 
 });
