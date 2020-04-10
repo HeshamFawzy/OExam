@@ -44,12 +44,12 @@
                             @endif
                         </td>
                         <td>
-                            @if($number[$index]->num <= $online_exam->total_question - 1 &&
+                            @if($number[$index]->num <= ($online_exam->total_question - 1) &&
                                 $online_exam->online_exam_status == "pending...")
                                 <button style="float: right;" type="button" class="btn btn-primary" data-toggle="modal"
                                     data-target="#Question" data-id="{{$online_exam->id}}">Add New
                                     Q</button>
-                                @elseif($number[$index]->num > 1)
+                                @elseif($number[$index]->num >= 1)
                                 <a class="btn btn-warning" href="{{ url('/viewquestions' , $online_exam->id)}}">View
                                     Questions</a>
                                 @endif
