@@ -176,4 +176,40 @@ class AdminController extends Controller
         return view('admin.questions')->with('questions' , $questions);
     }
 
+    public function editquestionp(Request $request)
+    {
+        $validatedData = $request->validate([
+            'id' => 'required',
+            'title' => 'required',
+            'O1' => 'required',
+            'O2' => 'required',
+            'O3' => 'required',
+            'O4' => 'required',
+            'Answer' => 'required',
+        ]);
+
+        question::where('id' , '=' , $request->input('id'))->update([
+            'question_title' => $request->input('title'),
+            'answer_option' => $request->input('Answer')
+        ]);
+
+        option::where('question_id' , '=' , $request->input('id'))->where('option_number' , '=' , 1)->update([
+            'option_title' => $request->input('O1'),
+        ]);
+
+        option::where('question_id' , '=' , $request->input('id'))->where('option_number' , '=' , 2)->update([
+            'option_title' => $request->input('O2'),
+        ]);
+
+        option::where('question_id' , '=' , $request->input('id'))->where('option_number' , '=' , 3)->update([
+            'option_title' => $request->input('O3'),
+        ]);
+
+        option::where('question_id' , '=' , $request->input('id'))->where('option_number' , '=' , 4)->update([
+            'option_title' => $request->input('O4'),
+        ]);
+
+        return redirect()->back();
+    }
+
 }

@@ -80,6 +80,17 @@
                         <input type="text" class="form-control" name="O4" required="" id="O4" />
                     </div>
 
+                    <div class="form-group">
+                        <label for="Answer">Answer* :</label>
+                        <select id="Answer" class="form-control" name="Answer" required="">
+                            <option value="" disabled="disabled" selected="true">Select group</option>
+                            <option value="1">Option 1</option>
+                            <option value="2">Option 2</option>
+                            <option value="3">Option 3</option>
+                            <option value="4">Option 4</option>
+                        </select>
+                    </div>
+
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                         <input type="submit" class="btn btn-success float-right" name="Add" value="Edit Question" />
