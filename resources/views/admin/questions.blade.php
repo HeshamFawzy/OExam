@@ -17,7 +17,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($questions->id as $key => $question)
+                    @foreach($questions as $key => $question)
                     <tr>
                         <td>{{$question->question_title}}</td>
                         <td>{{$question->answer_option}} Option</td>

@@ -171,19 +171,9 @@ class AdminController extends Controller
 
     public function viewquestions($id)
     {
-        $questions = DB::select("SELECT
-        questions.question_title,
-        questions.answer_option,
-        options.option_number,
-        options.option_title,
-        questions.id
-        FROM options
-        INNER JOIN questions
-        ON options.question_id = questions.id");
-        
-        $collection = collect($questions);
+        $questions = DB::table('questions')->get();
 
-        //dd($collection);
+        //dd($questions);
 
         return view('admin.questions')->with('questions' , $questions);
     }
