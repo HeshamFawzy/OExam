@@ -26,7 +26,7 @@ class user_exam_enroll extends Model
      */
     public function onlineExam()
     {
-        return $this->belongsTo('App\OnlineExam', 'exam_id');
+        return $this->belongsTo('App\online_exam', 'exam_id');
     }
 
     /**

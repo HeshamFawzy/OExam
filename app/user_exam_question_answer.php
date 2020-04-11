@@ -29,7 +29,7 @@ class user_exam_question_answer extends Model
      */
     public function onlineExam()
     {
-        return $this->belongsTo('App\OnlineExam', 'exam_id');
+        return $this->belongsTo('App\online_exam', 'exam_id');
     }
 
     /**
