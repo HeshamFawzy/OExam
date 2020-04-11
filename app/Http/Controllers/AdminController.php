@@ -23,7 +23,7 @@ class AdminController extends Controller
 {
     public function index()
     {
-        $online_exams = DB::table('online_exams')->paginate(3);
+        $online_exams = DB::table('online_exams')->orderby('created_at' , 'desc')->paginate(3);
 
         $number = DB::select("SELECT COUNT(questions.id) AS num
         FROM questions

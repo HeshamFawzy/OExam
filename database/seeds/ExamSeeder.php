@@ -11,7 +11,7 @@ class ExamSeeder extends Seeder
      */
     public function run()
     {
-        $count = 100;
+        $count = 30;
         factory(App\online_exam::class, $count)->create();
     }
 }

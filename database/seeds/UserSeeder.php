@@ -11,7 +11,7 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        $count = 100;
+        $count = 30;
         factory(App\User::class, $count)->create()->each(function($u) {
             $u->assignRole('UnVerify');
         });
