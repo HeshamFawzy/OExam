@@ -10,11 +10,6 @@ use App\user_exam_enroll;
 
 class UserController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('user');
-    }
-
     public function index()
     {
         $options = DB::table('online_exams')->get();

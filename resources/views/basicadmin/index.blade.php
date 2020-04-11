@@ -31,10 +31,10 @@
                 <td>{{$user->name}}</td>
                 <td>{{$user->email}}</td>
                 <td>
-                    @if($user->role == "Admin" || $user->role == "User")
-                        <label class="label label-success">{{$user->role}}</label>
+                    @if($user->getRoleNames()->first() == "Admin" || $user->getRoleNames()->first() == "User")
+                        <label class="label label-success">{{$user->getRoleNames()->first()}}</label>
                     @else
-                    <label class="label label-danger">{{$user->role}}</label>
+                    <label class="label label-danger">{{$user->getRoleNames()->first()}}</label>
                     @endif
                 </td>
                 <td>
@@ -46,7 +46,7 @@
 
                         <select id="role" class="form-control" name="role" required="">
                             @if($options ?? '') @foreach($options as $option)
-                            <option value="{{$option}}" {{$user->role == $option  ? 'selected' : ''}}>
+                            <option value="{{$option}}" {{$user->getRoleNames()->first() == $option  ? 'selected' : ''}}>
                                 {{$option}} </option>
                             @endforeach @endif
                         </select>

@@ -10,6 +10,8 @@ use App\Admin;
 
 use App\examiner;
 
+use Spatie\Permission\Models\Role;
+
 class HomeController extends Controller
 {
     public function start()
@@ -18,14 +20,12 @@ class HomeController extends Controller
             'name' => 'BasicAdmin',
             'email' => 'BasicAdmin@BasicAdmin.com',
             'password' => bcrypt('123456Aa_'),
-            'role' => 'BasicAdmin',
         ]);
 
         $Admin = User::create([
             'name' => 'Admin',
             'email' => 'Admin@Admin.com',
             'password' => bcrypt('123456Aa_'),
-            'role' => 'Admin',
         ]);
 
         $Admint = Admin::create([
@@ -36,12 +36,26 @@ class HomeController extends Controller
             'name' => 'User',
             'email' => 'User@User.com',
             'password' => bcrypt('123456Aa_'),
-            'role' => 'User',
         ]);
 
         $Usert = examiner::create([
             'user_id' => $User->id,
         ]);
+
+        $BasicAdminRole = Role::create(['name' => 'BasicAdmin']);
+
+        $AdminRole = Role::create(['name' => 'Admin']);
+
+        $UserRole = Role::create(['name' => 'User']);
+
+        $UnVerify = Role::create(['name' => 'UnVerify']);
+
+        $BasicAdmin->assignRole('BasicAdmin');
+
+        $Admin->assignRole('Admin');
+
+        $User->assignRole('User');
+
 
         return view('welcome');
     }

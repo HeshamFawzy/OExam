@@ -22,13 +22,13 @@ class LoginController extends Controller
 
     protected function redirectTo()
     {
-        if (auth()->user()->role == 'BasicAdmin') {
+        if (auth()->user()->hasRole('BasicAdmin')) {
             return '/Basicindex';
-        } else if (auth()->user()->role == 'Admin'){
+        } else if (auth()->user()->hasRole('Admin')){
             return '/Adminindex';
-        } else if (auth()->user()->role == 'User'){
+        } else if (auth()->user()->hasRole('User')){
             return '/Userindex';
-        } else if (auth()->user()->role == ''){
+        } else {
             return '/verification';
         }
     }

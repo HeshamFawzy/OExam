@@ -12,22 +12,17 @@ use Redirect;
 
 use App\Admin;
 
-USE App\Examiner;
+use App\Examiner;
+
+use Spatie\Permission\Models\Role;
+
 
 class BasicAdminController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('basicadmin');
-    }
-
     public function index()
     {
-        $users = DB::table('users')
-        ->where('role' , 'UnVerify')
-        ->orwhere('role' , 'User')
-        ->orwhere('role' , 'Admin')
-        ->paginate(10);;
+        $users = User::role(['Admin', 'User', 'UnVerify'])
+        ->paginate(10);
 
         $options = ['Admin' , 'User', 'UnVerify'];
         return view('basicadmin.index', ['users' => $users , 'options' => $options]);
@@ -35,9 +30,10 @@ class BasicAdminController extends Controller
 
     public function verify(Request $request)
     {
-        $user = User::where('users.id' , '=' , $request->input('id'))->update([
-            'role' => $request->input('role'),
-        ]);
+        $user = User::where('users.id' , '=' , $request->input('id'))->first();
+
+        $user->syncRoles($request->input('role'));
+        
         $user = User::where('users.id' , '=' , $request->input('id'))->get();
         if($request->input('role') == "Admin"){
             $existA = Admin::where('user_id' , $request->input('id'))->get();

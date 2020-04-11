@@ -21,11 +21,6 @@ use App\option;
 
 class AdminController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('admin');
-    }
-
     public function index()
     {
         $online_exams = DB::table('online_exams')->paginate(3);

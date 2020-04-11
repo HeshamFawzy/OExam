@@ -18,11 +18,11 @@ class RedirectIfAuthenticated
     public function handle($request, Closure $next, $guard = null)
     {
         if (Auth::guard($guard)->check()) {
-            if (auth()->user()->role == 'BasicAdmin') {
+            if (auth()->user()->hasRole('BasicAdmin')) {
                 return '/Basicindex';
-            } else if (auth()->user()->role == 'Admin'){
+            } else if (auth()->user()->hasRole('Admin')){
                 return '/Adminindex';
-            } else if (auth()->user()->role == 'User'){
+            } else if (auth()->user()->hasRole('User')){
                 return '/Userindex';
             } else {
                 return '/verification';
