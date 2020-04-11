@@ -22,7 +22,7 @@ class CreateOnlineExamsTable extends Migration
             $table->Integer('total_question');
             $table->string('marks_per_right_answer');
             $table->string('marks_per_wrong_answer');
-            $table->string('online_exam_status');
+            $table->enum('online_exam_status', ['pending...', 'started' , 'completed']);
             $table->string('online_exam_code');
             $table->timestamps();
 

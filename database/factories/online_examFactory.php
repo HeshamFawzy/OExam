@@ -13,7 +13,7 @@ $factory->define(App\online_exam::class, function (Faker $faker) {
         'total_question' => $faker->randomNumber(),
         'marks_per_right_answer' => $faker->word,
         'marks_per_wrong_answer' => $faker->word,
-        'online_exam_status' => $faker->word,
+        'online_exam_status' => $faker->randomElement(['pending...' ,'started', 'completed']),
         'online_exam_code' => $faker->word,
     ];
 });
