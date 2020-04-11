@@ -29,8 +29,10 @@ class AdminController extends Controller
         FROM questions
         RIGHT OUTER JOIN online_exams
         ON questions.exam_id = online_exams.id
-        GROUP BY online_exams.id");
+        GROUP BY online_exams.id
+        ORDER BY online_exams.created_at DESC");
 
+        //dd($online_exams);
         return view('admin.index', ['online_exams' => $online_exams, 'number' => $number]);
     }
 
