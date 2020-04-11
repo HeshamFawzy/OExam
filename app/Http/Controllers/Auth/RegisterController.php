@@ -30,7 +30,7 @@ class RegisterController extends Controller
             return '/Adminindex';
         } else if (auth()->user()->role == 'User'){
             return '/Userindex';
-        } else if (auth()->user()->role == ''){
+        } else if (auth()->user()->role == 'UnVerify'){
             return '/verification';
         }
     }
