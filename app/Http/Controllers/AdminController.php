@@ -25,7 +25,7 @@ class AdminController extends Controller
     {
         $online_exams = DB::table('online_exams')->orderby('created_at' , 'desc')->paginate(3);
 
-        $number = DB::select("SELECT COUNT(questions.id) AS num
+        $number = DB::select("SELECT COUNT(questions.id) AS num, online_exams.id
         FROM questions
         RIGHT OUTER JOIN online_exams
         ON questions.exam_id = online_exams.id
