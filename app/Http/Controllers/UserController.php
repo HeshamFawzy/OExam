@@ -20,7 +20,7 @@ class UserController extends Controller
 {
     public function index()
     {
-        $options = DB::table('online_exams')->get();
+        $options = DB::table('online_exams')->orderby('created_at' , 'desc')->get();
 
         $Examiner = DB::table('examiners')->where('user_id' , '=' , auth()->user()->id)->first();
 

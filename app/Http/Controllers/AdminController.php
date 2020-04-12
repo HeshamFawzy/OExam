@@ -226,8 +226,6 @@ class AdminController extends Controller
         ->where('exam_id' , '=' , $id)
         ->get();
 
-        //dd($Enrolls);
-
         return view('admin.enroll')->with('Enrolls' , $Enrolls);
     }
 
