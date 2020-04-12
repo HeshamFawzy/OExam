@@ -42,12 +42,14 @@
                             <td>{{$Enroll->online_exam_datetime}}</td>
                             <td>{{$Enroll->online_exam_duration}} Minutes</td>
                             <td>{{$Enroll->total_question}}</td>
-                            <td><span class="badge badge-pill badge-success">{{$Enroll->marks_per_right_answer}} Mark</span></td>
-                            <td><span class="badge badge-pill badge-danger">- {{$Enroll->marks_per_wrong_answer}} Mark</span></td>
+                            <td><span class="badge badge-pill badge-success">{{$Enroll->marks_per_right_answer}}
+                                    Mark</span></td>
+                            <td><span class="badge badge-pill badge-danger">- {{$Enroll->marks_per_wrong_answer}}
+                                    Mark</span></td>
                             <td> @if($Enroll->online_exam_status == "pending...")
                                 <label class="badge badge-warning p-1">{{$Enroll->online_exam_status}}</label>
                                 @elseif($Enroll->online_exam_status == "started")
-                                <a href="" class="btn btn-success">Start</a>
+                                <a href="{{ url('/start' , $Enroll->id)}}" class="btn btn-success">Start</a>
                                 @else
                                 <label class="badge badge-dark p-1">{{$Enroll->online_exam_status}}</label>
                                 @endif</td>

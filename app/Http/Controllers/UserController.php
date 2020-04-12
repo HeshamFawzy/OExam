@@ -86,4 +86,21 @@ class UserController extends Controller
 
         return Redirect::route('user');
     }
+
+    public function start($id)
+    {
+        $questions = DB::select("SELECT
+            questions.question_title,
+            options.option_number,
+            options.option_title
+        FROM questions
+        INNER JOIN online_exams
+        ON questions.exam_id = online_exams.id
+        INNER JOIN options
+        ON options.question_id = questions.id
+        WHERE online_exams.id = '+$id'
+        ");
+
+        return view('user.exam')->with('questions' , $questions);
+    }
 }
