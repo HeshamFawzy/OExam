@@ -18,7 +18,7 @@ class CreateExaminersTable extends Migration
             $table->Integer('user_id')->unsigned();
             $table->string('gender');
             $table->longText('address');
-            $table->bigInteger('mobile_no');
+            $table->string('mobile_no');
             $table->string('filename')->nullable();
             $table->string('mime')->nullable();
             $table->string('original_filename')->nullable();

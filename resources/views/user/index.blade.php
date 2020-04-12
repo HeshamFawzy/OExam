@@ -17,6 +17,41 @@
         @endforeach
         @endif
     </select>
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="text-primary font-weight-bold m-0 h1" style="text-align: center;">Enrolled Exams</h6>
+        </div>
+        <div class="card-body">
+            <div class="card">
+                <table class="table table-hover table-striped">
+                    <thead>
+                        <tr>
+                            <th>Exam Title</th>
+                            <th>Exam Date & Time</th>
+                            <th>Exam Duration</th>
+                            <th>Exam No. of Total Questions</th>
+                            <th>Exam Marks/Right Answer</th>
+                            <th>Exam Marks/Wrong Answer</th>
+                            <th>Exam Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table">
+                        @foreach($Enrolled as $Enroll)
+                        <tr>
+                            <td>{{$Enroll->online_exam_title}}</td>
+                            <td>{{$Enroll->online_exam_datetime}}</td>
+                            <td>{{$Enroll->online_exam_duration}}</td>
+                            <td>{{$Enroll->total_question}}</td>
+                            <td>{{$Enroll->marks_per_right_answer}}</td>
+                            <td>{{$Enroll->marks_per_wrong_answer}}</td>
+                            <td>{{$Enroll->online_exam_status}}</td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </div>
 <div class="modal fade" id="Details" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
