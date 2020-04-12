@@ -33,9 +33,19 @@
                     </button>
 
                     <!-- Branding Image -->
-                    <a class="navbar-brand" href="{{ url('/') }}">
-                        OExam
-                    </a>
+                    @hasrole('BasicAdmin')
+                        <a class="navbar-brand" href="{{ url('/Basicindex') }}">
+                            OExam
+                        </a>
+                    @else
+                        <a class="navbar-brand" href="{{ url('/Userindex') }}">
+                            OExam
+                        </a>
+
+                        <a class="navbar-brand" href="{{ url('/profile') }}">
+                            Profile
+                        </a>
+                    @endhasrole
                 </div>
 
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">

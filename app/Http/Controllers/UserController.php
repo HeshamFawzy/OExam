@@ -51,4 +51,9 @@ class UserController extends Controller
 
         return redirect()->back()->with('Enrolled' , $Enrolled);       
     }
+
+    public function profile()
+    {
+        return view('user.profile');
+    }
 }

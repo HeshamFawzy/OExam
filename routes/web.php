@@ -61,6 +61,8 @@ Route::group(["middleware" => ["auth","user"]], function(){
     Route::get('/Userindex', 'UserController@index')->name('user');
 
     Route::post('/enroll', 'UserController@enroll')->name('User.enroll');
+
+    Route::get('/profile', 'UserController@profile')->name('User.profile');
 });
 
 
