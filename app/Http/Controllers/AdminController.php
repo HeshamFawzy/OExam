@@ -23,14 +23,17 @@ class AdminController extends Controller
 {
     public function index()
     {
-        $online_exams = DB::table('online_exams')->orderby('created_at' , 'desc')->paginate(3);
+        $online_exams = DB::table('online_exams')->where('admin_id' , '=' , auth()->user()->id)->orderby('created_at' , 'desc')->paginate(3);
 
-        $number = DB::select("SELECT COUNT(questions.id) AS num, online_exams.id
+        $id = auth()->user()->id;
+
+        $number = collect(DB::select("SELECT COUNT(questions.id) AS num
         FROM questions
         RIGHT OUTER JOIN online_exams
         ON questions.exam_id = online_exams.id
+        WHERE admin_id = '+$id'
         GROUP BY online_exams.id
-        ORDER BY online_exams.created_at DESC");
+        ORDER BY online_exams.created_at DESC"));
 
         return view('admin.index', ['online_exams' => $online_exams, 'number' => $number]);
     }
