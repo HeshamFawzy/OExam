@@ -14,7 +14,7 @@
     <tbody id="table">
         @foreach($Enrolls as $Enroll)
         <tr>
-            <td> <img src="{{url('uploads/'.$Enroll->filename)}}" class="rounded-circle mr-5" style="width: 150px;"></td>
+            <td> <img src="{{url('uploads/'.$Enroll->filename)}}" class="rounded-circle mr-5" style="width: 60px;"></td>
             <td>{{$Enroll->name}}</td>
             <td>{{$Enroll->email}}</td>
             <td>{{$Enroll->mobile_no}}</td>
