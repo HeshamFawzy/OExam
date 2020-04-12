@@ -8,6 +8,14 @@ use DB;
 
 use App\user_exam_enroll;
 
+use Illuminate\Support\Facades\Storage;
+
+use File;
+
+use App\Examiner;
+
+use Redirect;
+
 class UserController extends Controller
 {
     public function index()
@@ -54,6 +62,28 @@ class UserController extends Controller
 
     public function profile()
     {
-        return view('user.profile');
+        $user = DB::table('users')
+        ->join('examiners' , 'examiners.user_id' , '=' , 'users.id')
+        ->where('user_id' , '=' , auth()->user()->id)
+        ->first();
+
+        return view('user.profile')->with('user' , $user);
+    }
+
+    public function updateprofile(Request $request, $id)
+    {
+        $image = $request->file('image');
+        $extension = $image->getClientOriginalExtension();
+        Storage::disk('public')->put($image->getFilename().'.'.$extension,  File::get($image));
+
+        Examiner::where('examiners.user_id' , '=' , $id)->update([
+            'address'               => $request->input('address'),
+            'mobile_no'               => $request->input('mobile_no'),
+            "mime"                  => $image->getClientMimeType(),
+            "original_filename"     => $image->getClientOriginalName(),
+            "filename"              => $image->getFilename().'.'.$extension,
+        ]);
+
+        return Redirect::route('user');
     }
 }
