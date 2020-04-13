@@ -67,6 +67,7 @@ Route::group(["middleware" => ["auth","user"]], function(){
     Route::post('/updateprofile/{id}', 'UserController@updateprofile')->name('User.updateprofile');
 
     Route::get('/start/{id}', 'UserController@start')->name('User.start');
+
 });
 
 

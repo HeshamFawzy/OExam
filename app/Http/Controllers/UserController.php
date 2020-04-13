@@ -29,8 +29,6 @@ class UserController extends Controller
         ->join('online_exams', 'online_exams.id', '=', 'user_exam_enrolls.exam_id')
         ->get();
 
-        //dd($Enrolled);
-
         return view('user.index')->with('options' , $options)->with('Enrolled' , $Enrolled);
     }
 
@@ -89,18 +87,26 @@ class UserController extends Controller
 
     public function start($id)
     {
-        $questions = DB::select("SELECT
-            questions.question_title,
-            options.option_number,
-            options.option_title
-        FROM questions
-        INNER JOIN online_exams
-        ON questions.exam_id = online_exams.id
-        INNER JOIN options
-        ON options.question_id = questions.id
-        WHERE online_exams.id = '+$id'
-        ");
+        $questions = DB::table('questions')
+        ->join('online_exams' , 'questions.exam_id' , '=' , 'online_exams.id')
+        ->select('questions.*')
+        ->where('online_exams.id' , '=' , $id)
+        ->get();
 
-        return view('user.exam')->with('questions' , $questions);
+        $ques = DB::table('questions')
+        ->join('online_exams' , 'questions.exam_id' , '=' , 'online_exams.id')
+        ->select('questions.*')
+        ->where('online_exams.id' , '=' , $id)
+        ->paginate(1);
+
+        $result = json_decode($questions, true);
+
+        foreach($questions as $key => $question)
+        {
+            $options[$key] = DB::table('options')->where('question_id' , '=' , $question->id)->get();
+            $result[$key]['options'] = $options[$key];
+        }
+
+        return view('user.exam')->with('data' , $result)->with('questions' , $ques);
     }
 }
