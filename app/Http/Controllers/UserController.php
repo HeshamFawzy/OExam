@@ -18,6 +18,8 @@ use Redirect;
 
 use Illuminate\Pagination\LengthAwarePaginator;
 
+use View;
+
 class UserController extends Controller
 {
     public function index()
@@ -119,10 +121,10 @@ class UserController extends Controller
             $options = DB::table('options')->where('question_id' , '=' , $question->id)->get();
             $result['options'] = $options;
 
-            return view('user.exam')->with('question' , $result);
+            return View::make('user.exam')->with('question' , $result);
         }
         
-        return Redirect::back()->withErrors(['IF U Want to finish the test Click Finsh']);
+        return View::make('user.exam')->withErrors(['IF U Want to finish the test Click Finsh']);
 
     }
 
@@ -142,9 +144,20 @@ class UserController extends Controller
             $options = DB::table('options')->where('question_id' , '=' , $question->id)->get();
             $result['options'] = $options;
 
-            return view('user.exam')->with('question' , $result);
+            return View::make('user.exam')->with('question' , $result);
         }
 
-        return Redirect::back()->withErrors(['IF U Want to finish the test Click Finsh']);
+        return View::make('user.exam')->withErrors(['IF U Want to finish the test Click Finsh']);
+    }
+
+    public function question(Request $request, $id)
+    {
+        if($request->input('action') == 'next')
+        {
+            return $this->next($id);
+        } else if($request->input('action') == 'previous')
+        {
+            return $this->previous($id);
+        }
     }
 }

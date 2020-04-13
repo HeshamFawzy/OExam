@@ -72,6 +72,8 @@ Route::group(["middleware" => ["auth","user"]], function(){
 
     Route::get('/previous/{id}', 'UserController@previous')->name('User.previous');
 
+    Route::post('/question/{id}', 'UserController@question')->name('User.question');
+
 });
 
 
