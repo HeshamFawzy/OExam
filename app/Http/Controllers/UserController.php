@@ -87,12 +87,13 @@ class UserController extends Controller
         return Redirect::route('user');
     }
 
-    public function start($id)
+    public function startexam($exam)
     {
+        session()->put('exam', $exam);
         $question = DB::table('questions')
         ->join('online_exams' , 'questions.exam_id' , '=' , 'online_exams.id')
         ->select('questions.*')
-        ->where('online_exams.id' , '=' , $id)
+        ->where('online_exams.id' , '=' , $exam)
         ->first();
 
         $result = json_decode(json_encode($question) , true);
@@ -100,8 +101,50 @@ class UserController extends Controller
         $options = DB::table('options')->where('question_id' , '=' , $question->id)->get();
         $result['options'] = $options;
 
-        //dd($result);
-
         return view('user.exam')->with('question' , $result);
+    }
+
+    public function next($id)
+    {
+        $exam = session()->get('exam');
+        $question = DB::table('questions')
+        ->join('online_exams' , 'questions.exam_id' , '=' , 'online_exams.id')
+        ->select('questions.*')
+        ->where('online_exams.id' , '=' , $exam)
+        ->where('questions.id' , '=' , $id + 1)
+        ->first();
+        if($question != null){
+            $result = json_decode(json_encode($question) , true);
+        
+            $options = DB::table('options')->where('question_id' , '=' , $question->id)->get();
+            $result['options'] = $options;
+
+            return view('user.exam')->with('question' , $result);
+        }
+        
+        return Redirect::back()->withErrors(['IF U Want to finish the test Click Finsh']);
+
+    }
+
+    public function previous($id)
+    {
+        $exam = session()->get('exam');
+        $question = DB::table('questions')
+        ->join('online_exams' , 'questions.exam_id' , '=' , 'online_exams.id')
+        ->select('questions.*')
+        ->where('online_exams.id' , '=' , $exam)
+        ->where('questions.id' , '=' , $id - 1)
+        ->first();
+
+        if($question != null){
+            $result = json_decode(json_encode($question) , true);
+        
+            $options = DB::table('options')->where('question_id' , '=' , $question->id)->get();
+            $result['options'] = $options;
+
+            return view('user.exam')->with('question' , $result);
+        }
+
+        return Redirect::back()->withErrors(['IF U Want to finish the test Click Finsh']);
     }
 }

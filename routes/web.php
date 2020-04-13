@@ -66,7 +66,11 @@ Route::group(["middleware" => ["auth","user"]], function(){
 
     Route::post('/updateprofile/{id}', 'UserController@updateprofile')->name('User.updateprofile');
 
-    Route::get('/start/{id}', 'UserController@start')->name('User.start');
+    Route::get('/startexam/{id}', 'UserController@startexam')->name('User.startexam');
+
+    Route::get('/next/{id}', 'UserController@next')->name('User.next');
+
+    Route::get('/previous/{id}', 'UserController@previous')->name('User.previous');
 
 });
 
