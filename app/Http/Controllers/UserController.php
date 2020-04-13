@@ -16,6 +16,8 @@ use App\Examiner;
 
 use Redirect;
 
+use Illuminate\Pagination\LengthAwarePaginator;
+
 class UserController extends Controller
 {
     public function index()
@@ -87,26 +89,19 @@ class UserController extends Controller
 
     public function start($id)
     {
-        $questions = DB::table('questions')
+        $question = DB::table('questions')
         ->join('online_exams' , 'questions.exam_id' , '=' , 'online_exams.id')
         ->select('questions.*')
         ->where('online_exams.id' , '=' , $id)
-        ->get();
+        ->first();
 
-        $ques = DB::table('questions')
-        ->join('online_exams' , 'questions.exam_id' , '=' , 'online_exams.id')
-        ->select('questions.*')
-        ->where('online_exams.id' , '=' , $id)
-        ->paginate(1);
+        $result = json_decode(json_encode($question) , true);
+        
+        $options = DB::table('options')->where('question_id' , '=' , $question->id)->get();
+        $result['options'] = $options;
 
-        $result = json_decode($questions, true);
+        //dd($result);
 
-        foreach($questions as $key => $question)
-        {
-            $options[$key] = DB::table('options')->where('question_id' , '=' , $question->id)->get();
-            $result[$key]['options'] = $options[$key];
-        }
-
-        return view('user.exam')->with('data' , $result)->with('questions' , $ques);
+        return view('user.exam')->with('question' , $result);
     }
 }
