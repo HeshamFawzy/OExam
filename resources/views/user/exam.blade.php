@@ -20,7 +20,7 @@
                 @foreach($question['options'] as $key => $que)
                 <div class="col-lg-3">
                     <div class="form-check"><input type="radio" id="{!! $key !!}" name="answer"
-                            value="{{$que->option_number}}"><label class="form-check-label" for="formCheck-1"
+                            value="{{$que->option_number}}" {{ $question['user_answer_option'] == $que->option_number ? 'checked' : ''}}><label class="form-check-label" for="formCheck-1"
                             style="font-size: 30px;">{{$que->option_title}}</label></div>
                 </div>
                 @endforeach

@@ -18,7 +18,7 @@ class CreateUserExamQuestionAnswerTable extends Migration
             $table->Integer('examiner_id')->unsigned();
             $table->Integer('exam_id')->unsigned();
             $table->integer('question_id')->unsigned();
-            $table->string('user_answer_option');
+            $table->string('user_answer_option')->nullable();
             $table->string('marks');
             $table->timestamps();
 

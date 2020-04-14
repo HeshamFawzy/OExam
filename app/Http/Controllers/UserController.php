@@ -96,13 +96,14 @@ class UserController extends Controller
         session()->put('exam', $exam);
         $question = DB::table('questions')
         ->join('online_exams' , 'questions.exam_id' , '=' , 'online_exams.id')
-        ->select('questions.*')
+        ->join('user_exam_question_answers' , 'user_exam_question_answers.question_id' , '=' , 'questions.id')
+        ->select('questions.*' , 'user_exam_question_answers.*' , 'questions.id as Qid')
         ->where('online_exams.id' , '=' , $exam)
         ->first();
-
+   
         $result = json_decode(json_encode($question) , true);
         
-        $options = DB::table('options')->where('question_id' , '=' , $question->id)->get();
+        $options = DB::table('options')->where('question_id' , '=' , $question->Qid)->get();
         $result['options'] = $options;
 
         return view('user.exam')->with('question' , $result);
@@ -113,14 +114,16 @@ class UserController extends Controller
         $exam = session()->get('exam');
         $question = DB::table('questions')
         ->join('online_exams' , 'questions.exam_id' , '=' , 'online_exams.id')
-        ->select('questions.*')
+        ->join('user_exam_question_answers' , 'user_exam_question_answers.question_id' , '=' , 'questions.id')
+        ->select('questions.*' , 'user_exam_question_answers.*' , 'questions.id as Qid')
         ->where('online_exams.id' , '=' , $exam)
         ->where('questions.id' , '=' , $id + 1)
         ->first();
+   
         if($question != null){
             $result = json_decode(json_encode($question) , true);
         
-            $options = DB::table('options')->where('question_id' , '=' , $question->id)->get();
+            $options = DB::table('options')->where('question_id' , '=' , $question->Qid)->get();
             $result['options'] = $options;
 
             return View::make('user.exam')->with('question' , $result);
@@ -135,7 +138,8 @@ class UserController extends Controller
         $exam = session()->get('exam');
         $question = DB::table('questions')
         ->join('online_exams' , 'questions.exam_id' , '=' , 'online_exams.id')
-        ->select('questions.*')
+        ->join('user_exam_question_answers' , 'user_exam_question_answers.question_id' , '=' , 'questions.id')
+        ->select('questions.*' , 'user_exam_question_answers.*' , 'questions.id as Qid')
         ->where('online_exams.id' , '=' , $exam)
         ->where('questions.id' , '=' , $id - 1)
         ->first();
@@ -143,7 +147,7 @@ class UserController extends Controller
         if($question != null){
             $result = json_decode(json_encode($question) , true);
         
-            $options = DB::table('options')->where('question_id' , '=' , $question->id)->get();
+            $options = DB::table('options')->where('question_id' , '=' , $question->Qid)->get();
             $result['options'] = $options;
 
             return View::make('user.exam')->with('question' , $result);
