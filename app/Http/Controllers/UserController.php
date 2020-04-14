@@ -197,4 +197,26 @@ class UserController extends Controller
         $exam = session()->get('exam');
         return $this->startexam($exam);
     }
+
+    public function timer()
+    {
+        $exam = session()->get('exam');
+        $duration =  DB::table('online_exams')
+        ->where('id' , '=' , $exam)
+        ->select('online_exam_duration')
+        ->first();
+        $response = array(
+            'duration' => $duration,
+          );
+        return response()->json($response);
+    }
+
+    public function timerdecrease(Request $request)
+    {
+        $t = $request->query('t') - 1;
+        $response = array(
+            'decrease' => $t,
+          );
+        return response()->json($response);
+    }
 }

@@ -76,6 +76,10 @@ Route::group(["middleware" => ["auth","user"]], function(){
 
     Route::get('/viewquestions', 'UserController@viewquestions')->name('User.viewquestions');
 
+    Route::get('/timer', 'UserController@timer')->name('User.timer');
+
+    Route::get('/timerdecrease', 'UserController@timerdecrease')->name('User.timerdecrease');
+
 });
 
 
