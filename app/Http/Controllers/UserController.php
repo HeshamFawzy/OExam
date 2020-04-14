@@ -20,6 +20,8 @@ use Illuminate\Pagination\LengthAwarePaginator;
 
 use View;
 
+use App\user_exam_question_answer;
+
 class UserController extends Controller
 {
     public function index()
@@ -152,6 +154,31 @@ class UserController extends Controller
 
     public function question(Request $request, $id)
     {
+        $Examiner = DB::table('examiners')->where('user_id' , '=' , auth()->user()->id)->first();
+
+        $find = DB::table('user_exam_question_answers')
+        ->where('examiner_id' , '=' , $Examiner->id)
+        ->where('exam_id' , '=' , $request->input('exam_id'))
+        ->where('question_id' , '=' , $id)
+        ->first();
+
+        if($find == null)
+        {
+            user_exam_question_answer::create([
+                'examiner_id'   =>  $Examiner->id,
+                'exam_id'  =>   $request->input('exam_id'),
+                'question_id'   =>  $id,
+                'user_answer_option' =>  $request->input('answer')
+            ]);
+        }else{
+            user_exam_question_answer::where('question_id' , '=' , $id)->update([
+                'examiner_id'   =>  $Examiner->id,
+                'exam_id'  =>   $request->input('exam_id'),
+                'question_id' =>  $id,
+                'user_answer_option' =>  $request->input('answer')
+            ]);
+        }
+
         if($request->input('action') == 'next')
         {
             return $this->next($id);
@@ -159,5 +186,11 @@ class UserController extends Controller
         {
             return $this->previous($id);
         }
+    }
+
+    public function viewquestions()
+    {
+        $exam = session()->get('exam');
+        return $this->startexam($exam);
     }
 }

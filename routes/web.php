@@ -74,6 +74,8 @@ Route::group(["middleware" => ["auth","user"]], function(){
 
     Route::post('/question/{id}', 'UserController@question')->name('User.question');
 
+    Route::get('/viewquestions', 'UserController@viewquestions')->name('User.viewquestions');
+
 });
 
 

@@ -15,6 +15,7 @@
         </div>
         <form method="post" action="{{ url('/question' , $question['id'])}}" enctype="multipart/form-data">
             {{ csrf_field() }}
+            <input type="number" value="{{$question['exam_id']}}" name="exam_id" hidden>
             <div class="row">
                 @foreach($question['options'] as $key => $que)
                 <div class="col-lg-3">
@@ -29,8 +30,11 @@
                     <input class="btn btn-success" type="submit" name="action" value="previous" />
                 </div>
             </div>
-            @endif
         </form>
+        @else
+        <a class="btn btn-warning" href="{{ route('User.viewquestions')}}">View
+            Questions</a>
+        @endif
     </div>
 </div>
 @endsection
