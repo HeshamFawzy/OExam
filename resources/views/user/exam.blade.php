@@ -43,7 +43,6 @@
 <script>
     $(document).ready(function () {
         let flag = localStorage.getItem('time');
-        console.log(flag);
         if (flag == null) {
             $.ajax({
                 url: "/time",
@@ -59,6 +58,7 @@
             localStorage.setItem('time' , x, true);
             if(x == 0){
                 var href = $('#finish').attr('href');
+                storage.removeItem(time);
                 window.location.href = href;
             }
             $.ajax({
@@ -72,6 +72,9 @@
                 }
             });
         }, 60000);
+        $('#finish').click(function(){
+            localStorage.removeItem('time');
+        });
     })
     $(window).keydown(function (event) {
 
