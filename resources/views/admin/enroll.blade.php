@@ -8,7 +8,7 @@
             <th>User Name</th>
             <th>Email Address</th>
             <th>Mobile No.</th>
-            <th>Action</th>
+            <th>Result</th>
         </tr>
     </thead>
     <tbody id="table">
@@ -18,7 +18,16 @@
             <td>{{$Enroll->name}}</td>
             <td>{{$Enroll->email}}</td>
             <td>{{$Enroll->mobile_no}}</td>
-            <td></td>
+            <td>
+                <form method="post" action="{{url('/result')}}" enctype="multipart/form-data">
+                    @csrf
+                    <input hidden type="text" class="form-control" name="exam_id" value="{{$Enroll->exam_id}}" />
+                    <input hidden type="text" class="form-control" name="examiner_id" value="{{$Enroll->id}}" />
+                    <input type="submit" class="btn btn-primary float-right" value="Result" />
+                </form>
+                @if($errors->any())
+                <h4 class="label label-warning">{{$errors->first()}}</h4>
+                @endif
         </tr>
         @endforeach
     </tbody>

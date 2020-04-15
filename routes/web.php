@@ -54,6 +54,9 @@ Route::group(["middleware" => ["auth","admin"]], function(){
     Route::GET('/deletequestion/{id}', 'AdminController@deletequestion')->name('Admin.deletequestion');
 
     Route::GET('/viewenroll/{id}', 'AdminController@viewenroll')->name('Admin.viewenroll');
+
+    Route::POST('/result', 'AdminController@result')->name('Admin.result');
+
 });
 
 Route::group(["middleware" => ["auth","user"]], function(){

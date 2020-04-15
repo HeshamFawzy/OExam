@@ -233,4 +233,17 @@ class AdminController extends Controller
         return view('admin.enroll')->with('Enrolls' , $Enrolls);
     }
 
+    public function result(Request $request)
+    {
+        $Examiner = DB::table('examiners')->where('user_id' , '=' , $request->input('examiner_id'))->first();
+
+        $result =  DB::table('user_exam_question_answers')
+        ->where('examiner_id' , '=' , $Examiner->id)
+        ->where('exam_id', '=' , $request->input('exam_id'))
+        ->groupBy('exam_id')
+        ->sum('marks');
+
+        return redirect()->back()->withErrors([$result]);
+    }
+
 }
