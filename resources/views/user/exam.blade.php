@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div style="background-color: white;padding: 1%;border-radius: 3%;">
-        <a class="btn btn-primary" type="button" style="float: right;">Finish The Test</a>
+        <a class="btn btn-primary" href="{{ url('/finish')}}" style="float: right;">Finish The Test</a>
         <div class="warning" style="float: right;">
             @if($errors->any())
             <h4 class="label label-warning">{{$errors->first()}}</h4>
@@ -42,20 +42,19 @@
 </div>
 <script>
     $(document).ready(function () {
-        if(sessionStorage.getItem("timer") == null){
+        let flag = 0;
+        if (flag == 0) {
             $.ajax({
                 url: "/time",
                 success: function (response) {
                     $("#timer").append(response.duration.online_exam_duration);
                 }
             });
-        } else {
-            $("#timer").append(sessionStorage.getItem("timer"));
+        }else {
+            
         }
-       
         setInterval(function () {
             let x = parseInt($("#timer").html().match(/\d+/));
-            sessionStorage.setItem("timer" ,  x );
             $.ajax({
                 url: "/timerdecrease",
                 type: "get",
@@ -68,7 +67,7 @@
             });
         }, 60000);
     })
-   /* $(window).keydown(function (event) {
+    $(window).keydown(function (event) {
 
         if (event.keyCode == 116) {
 
@@ -76,7 +75,7 @@
 
             return false;
 
-        }*/
+        }
 
     });
 

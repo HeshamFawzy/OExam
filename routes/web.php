@@ -80,6 +80,8 @@ Route::group(["middleware" => ["auth","user"]], function(){
 
     Route::get('/timerdecrease', 'UserController@timerdecrease')->name('User.timerdecrease');
 
+    Route::get('/finish', 'UserController@finish')->name('User.finish');
+
 });
 
 

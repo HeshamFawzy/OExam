@@ -215,4 +215,32 @@ class UserController extends Controller
         );
         return response()->json($response);
     }
+
+    public function finish()
+    {
+        $exam = session()->get('exam');
+
+        $questions = DB::table('questions')
+        ->join('online_exams', 'questions.exam_id', '=', 'online_exams.id')
+        ->leftjoin('user_exam_question_answers', 'user_exam_question_answers.question_id', '=', 'questions.id')
+        ->where('online_exams.id', '=', $exam)
+        ->get();
+
+        foreach($questions as $question)
+        {
+            if($question->answer_option == $question->user_answer_option){
+                user_exam_question_answer::where('id', '=', $question->id)->update([
+                    'marks' =>  $question->marks_per_right_answer
+                ]);
+            } else {
+                user_exam_question_answer::where('id', '=', $question->id)->update([
+                    'marks' =>  -$question->marks_per_wrong_answer
+                ]);
+            }
+        }
+
+        //dd($questions);
+
+
+    }
 }
