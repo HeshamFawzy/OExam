@@ -26,7 +26,7 @@
                     <input type="submit" class="btn btn-primary float-right" value="Result" />
                 </form>
                 @if($errors->any())
-                <h4 class="label label-warning">{{$errors->first()}}</h4>
+                <h4 class="label label-warning">{{$errors->first()}} Mark/s</h4>
                 @endif
         </tr>
         @endforeach

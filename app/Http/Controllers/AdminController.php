@@ -240,7 +240,6 @@ class AdminController extends Controller
         $result =  DB::table('user_exam_question_answers')
         ->where('examiner_id' , '=' , $Examiner->id)
         ->where('exam_id', '=' , $request->input('exam_id'))
-        ->groupBy('exam_id')
         ->sum('marks');
 
         return redirect()->back()->withErrors([$result]);
