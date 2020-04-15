@@ -44,7 +44,7 @@
     $(document).ready(function () {
         if(sessionStorage.getItem("timer") == null){
             $.ajax({
-                url: "/timer",
+                url: "/time",
                 success: function (response) {
                     $("#timer").append(response.duration.online_exam_duration);
                 }

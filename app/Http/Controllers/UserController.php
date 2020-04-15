@@ -96,11 +96,12 @@ class UserController extends Controller
         session()->put('exam', $exam);
         $question = DB::table('questions')
         ->join('online_exams' , 'questions.exam_id' , '=' , 'online_exams.id')
-        ->join('user_exam_question_answers' , 'user_exam_question_answers.question_id' , '=' , 'questions.id')
+        ->leftjoin('user_exam_question_answers' , 'user_exam_question_answers.question_id' , '=' , 'questions.id')
         ->select('questions.*' , 'user_exam_question_answers.*' , 'questions.id as Qid')
         ->where('online_exams.id' , '=' , $exam)
         ->first();
-   
+
+        
         $result = json_decode(json_encode($question) , true);
         
         $options = DB::table('options')->where('question_id' , '=' , $question->Qid)->get();
@@ -114,7 +115,7 @@ class UserController extends Controller
         $exam = session()->get('exam');
         $question = DB::table('questions')
         ->join('online_exams' , 'questions.exam_id' , '=' , 'online_exams.id')
-        ->join('user_exam_question_answers' , 'user_exam_question_answers.question_id' , '=' , 'questions.id')
+        ->leftjoin('user_exam_question_answers' , 'user_exam_question_answers.question_id' , '=' , 'questions.id')
         ->select('questions.*' , 'user_exam_question_answers.*' , 'questions.id as Qid')
         ->where('online_exams.id' , '=' , $exam)
         ->where('questions.id' , '=' , $id + 1)
@@ -198,7 +199,7 @@ class UserController extends Controller
         return $this->startexam($exam);
     }
 
-    public function timer()
+    public function time()
     {
         $exam = session()->get('exam');
         $duration =  DB::table('online_exams')
