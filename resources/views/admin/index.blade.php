@@ -275,7 +275,7 @@
 <script>
     $(document).ready(function () {
         var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-        setInterval(function () {
+        /*setInterval(function () {
             $.ajax({
                 url: "/timer",
                 success: function (response) {
@@ -290,7 +290,7 @@
                     $("#view").load(" #view");
                 }
             });
-        }, 10000);
+        }, 10000);*/
         $('#Question').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget)
             var id = button.data('id')

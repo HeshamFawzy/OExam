@@ -97,7 +97,7 @@ class AdminController extends Controller
         return Redirect::route('admin');
     }
 
-    public function timer()
+    /*public function timer()
     {
         $now =  Carbon::now('Africa/Cairo')->timestamp;
         $online_exams = DB::table('online_exams')
@@ -138,7 +138,7 @@ class AdminController extends Controller
                 }
             } 
         }
-    }
+    }*/
 
     public function createquestion(Request $request)
     {
