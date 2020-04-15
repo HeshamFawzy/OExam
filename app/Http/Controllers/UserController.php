@@ -239,8 +239,6 @@ class UserController extends Controller
             }
         }
 
-        //dd($questions);
-
-
+        return Redirect::route('user');
     }
 }

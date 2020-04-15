@@ -53,7 +53,6 @@
                                 @else
                                 <label class="badge badge-dark p-1">{{$Enroll->online_exam_status}}</label>
                                 @endif
-                                <a href="{{ url('/startexam' , $Enroll->id)}}" class="btn btn-success">Start</a>
                             </td>
                         </tr>
                         @endforeach
