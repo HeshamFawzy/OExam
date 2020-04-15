@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div style="background-color: white;padding: 1%;border-radius: 3%;">
-        <a class="btn btn-primary" href="{{ url('/finish')}}" style="float: right;">Finish The Test</a>
+        <a class="btn btn-primary" id="finish" href="{{ url('/finish')}}" style="float: right;">Finish The Test</a>
         <div class="warning" style="float: right;">
             @if($errors->any())
             <h4 class="label label-warning">{{$errors->first()}}</h4>
@@ -42,8 +42,9 @@
 </div>
 <script>
     $(document).ready(function () {
-        let flag = 0;
-        if (flag == 0) {
+        let flag = localStorage.getItem('time');
+        console.log(flag);
+        if (flag == null) {
             $.ajax({
                 url: "/time",
                 success: function (response) {
@@ -51,10 +52,15 @@
                 }
             });
         }else {
-            
+            $("#timer").html(localStorage.getItem('time') + " Minutes");
         }
         setInterval(function () {
             let x = parseInt($("#timer").html().match(/\d+/));
+            localStorage.setItem('time' , x, true);
+            if(x == 0){
+                var href = $('#finish').attr('href');
+                window.location.href = href;
+            }
             $.ajax({
                 url: "/timerdecrease",
                 type: "get",
@@ -65,9 +71,9 @@
                     $("#timer").html(response.decrease + " Minutes");
                 }
             });
-        }, 60000);
+        }, 1000);
     })
-    $(window).keydown(function (event) {
+    /*$(window).keydown(function (event) {
 
         if (event.keyCode == 116) {
 
@@ -77,7 +83,7 @@
 
         }
 
-    });
+    });*/
 
 </script>
 @endsection

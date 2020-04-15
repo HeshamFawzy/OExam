@@ -49,7 +49,7 @@
                             <td> @if($Enroll->online_exam_status == "pending...")
                                 <label class="badge badge-warning p-1">{{$Enroll->online_exam_status}}</label>
                                 @elseif($Enroll->online_exam_status == "started")
-                                <a href="{{ url('/start' , $Enroll->id)}}" class="btn btn-success">Start</a>
+                                <a href="{{ url('/startexam' , $Enroll->id)}}" class="btn btn-success">Start</a>
                                 @else
                                 <label class="badge badge-dark p-1">{{$Enroll->online_exam_status}}</label>
                                 @endif
