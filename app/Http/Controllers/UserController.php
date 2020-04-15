@@ -158,17 +158,17 @@ class UserController extends Controller
     public function question(Request $request, $id)
     {
         $Examiner = DB::table('examiners')->where('user_id', '=', auth()->user()->id)->first();
-
+        
         $find = DB::table('user_exam_question_answers')
             ->where('examiner_id', '=', $Examiner->id)
-            ->where('exam_id', '=', $request->input('exam_id'))
+            ->where('exam_id', '=', session()->get('exam'))
             ->where('question_id', '=', $id)
             ->first();
 
         if ($find == null) {
             user_exam_question_answer::create([
                 'examiner_id'   =>  $Examiner->id,
-                'exam_id'  =>   $request->input('exam_id'),
+                'exam_id'  =>   session()->get('exam'),
                 'question_id'   =>  $id,
                 'user_answer_option' =>  $request->input('answer')
             ]);

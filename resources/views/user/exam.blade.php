@@ -14,7 +14,7 @@
         <div class="card-body container">
             <h1 class="card-title">Question : {{$question['question_title']}}</h1>
         </div>
-        <form method="post" action="{{ url('/question' , $question['id'])}}" enctype="multipart/form-data">
+        <form method="post" action="{{ url('/question' , $question['Qid'])}}" enctype="multipart/form-data">
             {{ csrf_field() }}
             <input type="number" value="{{$question['exam_id']}}" name="exam_id" hidden>
             <div class="row">
@@ -68,7 +68,7 @@
             });
         }, 60000);
     })
-    $(window).keydown(function (event) {
+   /* $(window).keydown(function (event) {
 
         if (event.keyCode == 116) {
 
@@ -76,7 +76,7 @@
 
             return false;
 
-        }
+        }*/
 
     });
 
