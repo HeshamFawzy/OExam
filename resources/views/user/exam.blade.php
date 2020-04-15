@@ -71,9 +71,9 @@
                     $("#timer").html(response.decrease + " Minutes");
                 }
             });
-        }, 1000);
+        }, 60000);
     })
-    /*$(window).keydown(function (event) {
+    $(window).keydown(function (event) {
 
         if (event.keyCode == 116) {
 
@@ -83,7 +83,7 @@
 
         }
 
-    });*/
+    });
 
 </script>
 @endsection
